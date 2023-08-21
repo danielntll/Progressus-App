@@ -1,5 +1,5 @@
 import { IonButton, IonIcon } from "@ionic/react";
-import { calendar } from "ionicons/icons";
+import { calendar, calendarNumber } from "ionicons/icons";
 import { days, DefaultComponentText, months } from "./SliderCalendar-text";
 
 import styles from "./SliderCalendar.module.css";
@@ -25,6 +25,7 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   const [isModalCalendarOpen, setIsModalCalendarOpen] =
     useState<boolean>(false);
 
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedYear, setSelectedYear] = useState<number>(today.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
   const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
@@ -41,13 +42,9 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   };
 
   useEffect(() => {
-    console.log("handleGetDayData : ", selectedDay);
-    if (calendarSwiper) calendarSwiper.slideTo(selectedDay);
-  }, [selectedDay]);
-
-  useEffect(() => {
     handleSetMonthData(getDaysInMonth(selectedMonth, selectedYear));
-  }, [selectedMonth, selectedYear]);
+    if (calendarSwiper) calendarSwiper.slideTo(selectedDay);
+  }, [selectedDay, selectedMonth, selectedYear]);
 
   const handleSetMonthData = (length: number) => {
     const auxArray: typeCardSingleDay[] = [];
@@ -71,20 +68,48 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   const handleChangeDay = (dayNumber: number) => {
     setSelectedDay(dayNumber);
   };
+
+  const handleChangeFullDate = (selectedDate: Date) => {
+    const newDate = new Date(selectedDate);
+    if (calendarSwiper) calendarSwiper.slideTo(selectedDay);
+    setSelectedDate(selectedDate);
+    setSelectedDay(newDate.getDate());
+    setSelectedMonth(newDate.getMonth());
+    setSelectedYear(newDate.getFullYear());
+    setSelectedWeekDay(newDate.getDay());
+  };
   // RETURN ------------------------
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.SliderCalendar__header}>
-          <h3>{months[today.getMonth()]}</h3>
-          <IonButton onClick={() => handleOpenModalCalendar()} size="small">
-            <IonIcon icon={calendar} />
-          </IonButton>
+        <div className={styles.SliderCalendar__header + " ion-padding"}>
+          <div>
+            <p className={styles.SliderCalendar__year}>{selectedYear}</p>
+            <h3 className={styles.SliderCalendar__month}>
+              {months.ita[selectedMonth]}
+            </h3>
+          </div>
+          <div>
+            <IonButton
+              fill="outline"
+              onClick={() => handleChangeFullDate(today)}
+              size="small"
+            >
+              {DefaultComponentText.ita.today}
+            </IonButton>
+            <IonButton onClick={() => handleOpenModalCalendar()} size="small">
+              <IonIcon icon={calendar} />
+            </IonButton>
+          </div>
         </div>
         <div className={styles.SliderCalendar__content}>
           <Swiper
             onInit={(ev) => {
               setCalendarSwiper(ev);
+            }}
+            onActiveIndexChange={(e) => {
+              console.log(selectedDay);
+              console.log(e.activeIndex);
             }}
             centeredSlides={true}
             slidesPerView={4}
@@ -99,7 +124,7 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
                   <CardSingleDay
                     data={data}
                     isActive={selectedDay === data.dayNumber ? true : false}
-                    isToday={data.dayNumber === today.getDate() ? true : false}
+                    isToday={selectedDate === today ? true : false}
                     callback={() => handleChangeDay(data.dayNumber)}
                   />
                 </SwiperSlide>
@@ -112,9 +137,7 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
       <ModalCalendar
         isOpen={isModalCalendarOpen}
         setIsOpen={setIsModalCalendarOpen}
-        callback={(val) => {
-          setSelectedDay(val);
-        }}
+        callback={handleChangeFullDate}
       />
     </>
   );

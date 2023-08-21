@@ -1,11 +1,12 @@
 import { DefaultComponentText } from "./ModalCalendar-text";
 import styles from "./ModalCalendar.module.css";
-import { IonContent, IonDatetime, IonModal } from "@ionic/react";
+import { IonButton, IonContent, IonDatetime, IonModal } from "@ionic/react";
+import { useState } from "react";
 
 interface ContainerProps {
   isOpen: boolean;
   setIsOpen: (val: boolean) => void;
-  callback: (val: number) => void;
+  callback: (selectedDate: Date) => void;
 }
 
 const ModalCalendar: React.FC<ContainerProps> = ({
@@ -15,10 +16,14 @@ const ModalCalendar: React.FC<ContainerProps> = ({
 }) => {
   // VARIABLES ---------------------
   // CONDITIONS --------------------
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   // FUNCTIONS ---------------------
   const handleSelectedDate = (date: any) => {
-    console.log("handleSelectedDate : ", new Date(date).getDate());
-    callback(new Date(date).getDate());
+    setSelectedDate(new Date(date));
+  };
+
+  const handleConfirm = () => {
+    callback(selectedDate);
     setIsOpen(false);
   };
   // RETURN ------------------------
@@ -40,6 +45,9 @@ const ModalCalendar: React.FC<ContainerProps> = ({
             presentation="date"
           ></IonDatetime>
         </div>
+        <IonButton expand="block" onClick={() => handleConfirm()}>
+          {DefaultComponentText.cta}
+        </IonButton>
       </IonContent>
     </IonModal>
   );

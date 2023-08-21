@@ -32,7 +32,7 @@ const PageTodos: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         {/* INIT CONTENT ---------------------- */}
-        <div className={styles.pageContainer + " ion-padding"}>
+        <div className={styles.pageContainer}>
           <SliderCalendar />
         </div>
         {/* END CONTENT ----------------------- */}
