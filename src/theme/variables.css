@@ -1,3 +1,7 @@
+p {
+  margin: 0;
+}
+
 :root {
   /** primary **/
   --ion-color-primary: #3880ff;

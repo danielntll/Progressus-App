@@ -1,0 +1,36 @@
+.CardSingleDay__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.CardSingleDay__isActive {
+  background-color: var(--ion-color-secondary);
+}
+
+.CardSingleDay__IonBadge {
+  position: absolute;
+  bottom: -24px;
+}
+
+.CardSingleDay__dayNumber {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.CardSingleDay__dayString {
+  font-size: 14px;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+
+.CardSingleDay__circularProgress {
+  width: 40px;
+  height: 40px;
+}

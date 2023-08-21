@@ -32,7 +32,7 @@ import "./theme/variables.css";
 import PageHome from "./pages/PageHome/PageHome";
 import { RoutesApp } from "./routes";
 import { useState } from "react";
-import PageTodos from "./pages/PageTodos/DefaultPage";
+import PageTodos from "./pages/PageTodos/PageTodos";
 
 setupIonicReact();
 

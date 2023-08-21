@@ -1,0 +1,17 @@
+.container {
+}
+
+.SliderCalendar__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.SliderCalendar__content {
+  padding: 8px;
+}
+
+.SliderCalendar__slide {
+  padding-bottom: 24px;
+}

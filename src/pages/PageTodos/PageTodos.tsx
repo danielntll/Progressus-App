@@ -1,4 +1,6 @@
 import {
+  IonCard,
+  IonCardContent,
   IonContent,
   IonHeader,
   IonPage,
@@ -9,6 +11,7 @@ import {
 import styles from "./PageTodos.module.css";
 import { PageTodosText } from "./PageTodos-text";
 import { RoutesApp } from "../../routes";
+import SliderCalendar from "../../components/SliderCalendar/SliderCalendar";
 
 const PageTodos: React.FC = () => {
   // VARIABLES ---------------------
@@ -29,7 +32,9 @@ const PageTodos: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         {/* INIT CONTENT ---------------------- */}
-        <div className={styles.pageContainer}></div>
+        <div className={styles.pageContainer + " ion-padding"}>
+          <SliderCalendar />
+        </div>
         {/* END CONTENT ----------------------- */}
       </IonContent>
     </IonPage>
