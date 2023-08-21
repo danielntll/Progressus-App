@@ -12,6 +12,7 @@ import CardSingleDay, {
 } from "../CardSingleDay/CardSingleDay";
 import { useEffect, useState } from "react";
 import { getDaysInMonth } from "../../utils/getDaysInMonth";
+import ModalCalendar from "../Modal__Calendar/ModalCalendar";
 
 interface ContainerProps {}
 
@@ -20,6 +21,10 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   const today = new Date();
 
   // CONDITIONS --------------------
+  const [calendarSwiper, setCalendarSwiper] = useState<any>();
+  const [isModalCalendarOpen, setIsModalCalendarOpen] =
+    useState<boolean>(false);
+
   const [selectedYear, setSelectedYear] = useState<number>(today.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
   const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
@@ -32,10 +37,12 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   // FUNCTIONS ---------------------
   const handleOpenModalCalendar = () => {
     console.log("handleOpenModalCalendar");
+    setIsModalCalendarOpen(true);
   };
 
   useEffect(() => {
     console.log("handleGetDayData : ", selectedDay);
+    if (calendarSwiper) calendarSwiper.slideTo(selectedDay);
   }, [selectedDay]);
 
   useEffect(() => {
@@ -66,33 +73,50 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   };
   // RETURN ------------------------
   return (
-    <div className={styles.container}>
-      <div className={styles.SliderCalendar__header}>
-        <h3>{months[today.getMonth()]}</h3>
-        <IonButton onClick={() => handleOpenModalCalendar()} size="small">
-          <IonIcon icon={calendar} />
-        </IonButton>
+    <>
+      <div className={styles.container}>
+        <div className={styles.SliderCalendar__header}>
+          <h3>{months[today.getMonth()]}</h3>
+          <IonButton onClick={() => handleOpenModalCalendar()} size="small">
+            <IonIcon icon={calendar} />
+          </IonButton>
+        </div>
+        <div className={styles.SliderCalendar__content}>
+          <Swiper
+            onInit={(ev) => {
+              setCalendarSwiper(ev);
+            }}
+            centeredSlides={true}
+            slidesPerView={4}
+            initialSlide={selectedDay - 1}
+          >
+            {monthData?.map((data: typeCardSingleDay, index: number) => {
+              return (
+                <SwiperSlide
+                  key={selectedMonth + index}
+                  className={styles.SliderCalendar__slide}
+                >
+                  <CardSingleDay
+                    data={data}
+                    isActive={selectedDay === data.dayNumber ? true : false}
+                    isToday={data.dayNumber === today.getDate() ? true : false}
+                    callback={() => handleChangeDay(data.dayNumber)}
+                  />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
       </div>
-      <div className={styles.SliderCalendar__content}>
-        <Swiper slidesPerView={4} initialSlide={selectedDay - 1}>
-          {monthData?.map((data: typeCardSingleDay, index: number) => {
-            return (
-              <SwiperSlide
-                key={selectedMonth + index}
-                className={styles.SliderCalendar__slide}
-              >
-                <CardSingleDay
-                  data={data}
-                  isActive={selectedDay === data.dayNumber ? true : false}
-                  isToday={data.dayNumber === today.getDate() ? true : false}
-                  callback={() => handleChangeDay(data.dayNumber)}
-                />
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      </div>
-    </div>
+      {/* -------------- EXTRA -------------- */}
+      <ModalCalendar
+        isOpen={isModalCalendarOpen}
+        setIsOpen={setIsModalCalendarOpen}
+        callback={(val) => {
+          setSelectedDay(val);
+        }}
+      />
+    </>
   );
 };
 
