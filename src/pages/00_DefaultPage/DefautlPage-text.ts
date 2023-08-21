@@ -1,3 +1,1 @@
-export const DefautlPageText = {
-  title: "Home",
-};
+export const DefautlPageText = {};

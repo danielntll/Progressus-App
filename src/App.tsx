@@ -32,6 +32,7 @@ import "./theme/variables.css";
 import PageHome from "./pages/PageHome/PageHome";
 import { RoutesApp } from "./routes";
 import { useState } from "react";
+import PageTodos from "./pages/PageTodos/DefaultPage";
 
 setupIonicReact();
 
@@ -54,6 +55,9 @@ const App: React.FC = () => {
             <Route exact path={RoutesApp.pageHome.path}>
               <PageHome />
             </Route>
+            <Route exact path={RoutesApp.pageTodos.path}>
+              <PageTodos />
+            </Route>
           </IonRouterOutlet>
 
           {/* TABBAR ---------------- */}
@@ -75,6 +79,20 @@ const App: React.FC = () => {
                 }
               />
               <IonLabel>{RoutesApp.pageHome.title}</IonLabel>
+            </IonTabButton>
+            <IonTabButton
+              tab={RoutesApp.pageTodos.title}
+              href={RoutesApp.pageTodos.path}
+            >
+              <IonIcon
+                aria-hidden="true"
+                icon={
+                  currentTab === RoutesApp.pageTodos.title
+                    ? RoutesApp.pageTodos.icon.active
+                    : RoutesApp.pageTodos.icon.notActive
+                }
+              />
+              <IonLabel>{RoutesApp.pageTodos.title}</IonLabel>
             </IonTabButton>
             {/* END TAB BUTTONS ------------ */}
           </IonTabBar>
