@@ -1,6 +1,6 @@
 import { IonButton, IonIcon } from "@ionic/react";
 import { calendar } from "ionicons/icons";
-import { DefaultComponentText } from "./SliderCalendar-text";
+import { days, DefaultComponentText, months } from "./SliderCalendar-text";
 
 import styles from "./SliderCalendar.module.css";
 
@@ -18,7 +18,7 @@ interface ContainerProps {}
 const SliderCalendar: React.FC<ContainerProps> = () => {
   // VARIABLES ---------------------
   const today = new Date();
-  const days = ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"];
+
   // CONDITIONS --------------------
   const [selectedYear, setSelectedYear] = useState<number>(today.getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
@@ -68,7 +68,7 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   return (
     <div className={styles.container}>
       <div className={styles.SliderCalendar__header}>
-        <h3>{DefaultComponentText.title}</h3>
+        <h3>{months[today.getMonth()]}</h3>
         <IonButton onClick={() => handleOpenModalCalendar()} size="small">
           <IonIcon icon={calendar} />
         </IonButton>
