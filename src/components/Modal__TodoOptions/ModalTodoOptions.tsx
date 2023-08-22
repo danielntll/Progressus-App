@@ -1,13 +1,21 @@
-import { IonButton, IonButtons, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonSegment, IonSegmentButton, IonTextarea, IonTitle, IonToolbar, SegmentValue } from "@ionic/react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonSegment, IonSegmentButton, IonTextarea, IonTitle, IonToolbar } from "@ionic/react";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
-import styles from "./ModalTodoOptions.module.css";
 import { text } from "./text";
 import { typeTodo } from "../../types/typeTodo";
-import { add, alertCircleOutline, checkmark, checkmarkCircle, closeCircle, ellipse, removeCircleOutline } from "ionicons/icons";
+import { add, alertCircleOutline, closeCircle, removeCircleOutline } from "ionicons/icons";
 import { montsStrict } from "../Slider__Calendar/text";
 import { todoCategory } from "../../types/typeTodoCategory";
 import { textTodoCategory } from "../../text/textTodoCategory";
 import { useEffect, useState } from "react";
+
+
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+
+import styles from "./ModalTodoOptions.module.css";
+import CardCustomizeDaily from "../Card__CustomizeDaily/CardCustomizeDaily";
 
 interface ContainerProps {
   isModalOptionsOpen: boolean,
@@ -29,7 +37,7 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
   // VARIABLES ---------------------
   const language: typeAviableLanguages = "ita";
   // CONDITIONS --------------------
-
+  const [categorySwiper, setCategorySwiper] = useState<any>();
   // FUNCTIONS ---------------------
 
 
@@ -170,7 +178,36 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
                 )
               })}
             </IonSegment>
+          </div>
 
+          <div>
+            <Swiper
+              onInit={(ev) => {
+                setCategorySwiper(ev);
+              }}
+              centeredSlides={true}
+              slidesPerView={1}
+              initialSlide={0}
+            >
+              <SwiperSlide>
+                <CardCustomizeDaily />
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <IonCard>
+                  <IonCardContent>
+                    Sarà aggiunto cascsdc
+                  </IonCardContent>
+                </IonCard>
+              </SwiperSlide>
+              <SwiperSlide>
+                <IonCard>
+                  <IonCardContent>
+                    Sarà aggiunto cascsdc
+                  </IonCardContent>
+                </IonCard>
+              </SwiperSlide>
+            </Swiper>
           </div>
 
 
