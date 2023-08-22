@@ -3,8 +3,8 @@ import styles from "./CardSingleDay.module.css";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { IonBadge, IonCard, IonCardContent } from "@ionic/react";
-import { useState } from "react";
+import { IonBadge, } from "@ionic/react";
+import { typeCardSingleDay } from "../../types/typeCardSingleDay";
 
 interface ContainerProps {
   data: typeCardSingleDay;
@@ -29,8 +29,8 @@ const CardSingleDay: React.FC<ContainerProps> = ({
       className={
         isActive
           ? styles.CardSingleDay__isActive +
-            " " +
-            styles.CardSingleDay__container
+          " " +
+          styles.CardSingleDay__container
           : styles.CardSingleDay__container
       }
     >
@@ -59,8 +59,3 @@ const CardSingleDay: React.FC<ContainerProps> = ({
 };
 
 export default CardSingleDay;
-
-export type typeCardSingleDay = {
-  dayNumber: number;
-  dayString: string;
-};

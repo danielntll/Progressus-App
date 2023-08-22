@@ -7,14 +7,14 @@ import styles from "./SliderCalendar.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import CardSingleDay, {
-  typeCardSingleDay,
-} from "../CardSingleDay/CardSingleDay";
+
 import { useEffect, useState } from "react";
 import { getDaysInMonth } from "../../utils/getDaysInMonth";
 import ModalCalendar from "../Modal__Calendar/ModalCalendar";
+import { typeCardSingleDay } from "../../types/typeCardSingleDay";
+import CardSingleDay from "../Card__SingleDay/CardSingleDay";
 
-interface ContainerProps {}
+interface ContainerProps { }
 
 const SliderCalendar: React.FC<ContainerProps> = () => {
   // VARIABLES ---------------------

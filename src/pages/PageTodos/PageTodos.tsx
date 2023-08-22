@@ -1,6 +1,4 @@
 import {
-  IonCard,
-  IonCardContent,
   IonContent,
   IonHeader,
   IonPage,
@@ -11,7 +9,7 @@ import {
 import styles from "./PageTodos.module.css";
 import { PageTodosText } from "./PageTodos-text";
 import { RoutesApp } from "../../routes";
-import SliderCalendar from "../../components/SliderCalendar/SliderCalendar";
+import SliderCalendar from "../../components/Slider__Calendar/SliderCalendar";
 
 const PageTodos: React.FC = () => {
   // VARIABLES ---------------------
