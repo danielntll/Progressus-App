@@ -1,10 +1,10 @@
-import { typeAviableLanguages } from "../../types/typeAviableLanguages";
-import styles from "./DefaultComponent.module.css";
 import { text } from "./text";
+import styles from "./SectionTaskToBeDone.module.css";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 interface ContainerProps { }
 
-const DefaultComponent: React.FC<ContainerProps> = () => {
+const SectionTaskToBeDone: React.FC<ContainerProps> = () => {
   // VARIABLES ---------------------
   const language: typeAviableLanguages = "ita";
   // CONDITIONS --------------------
@@ -13,4 +13,4 @@ const DefaultComponent: React.FC<ContainerProps> = () => {
   return <div className={styles.container}>{text[language].title}</div>;
 };
 
-export default DefaultComponent;
+export default SectionTaskToBeDone;

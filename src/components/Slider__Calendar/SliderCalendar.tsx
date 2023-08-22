@@ -1,6 +1,6 @@
 import { IonButton, IonIcon } from "@ionic/react";
 import { calendar } from "ionicons/icons";
-import { days, DefaultComponentText, months } from "./SliderCalendar-text";
+import { days, DefaultComponentText, months } from "./text";
 
 import styles from "./SliderCalendar.module.css";
 
@@ -13,11 +13,13 @@ import { getDaysInMonth } from "../../utils/getDaysInMonth";
 import ModalCalendar from "../Modal__Calendar/ModalCalendar";
 import { typeCardSingleDay } from "../../types/typeCardSingleDay";
 import CardSingleDay from "../Card__SingleDay/CardSingleDay";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 interface ContainerProps { }
 
 const SliderCalendar: React.FC<ContainerProps> = () => {
   // VARIABLES ---------------------
+  const language: typeAviableLanguages = "ita";
   const today = new Date();
 
   // CONDITIONS --------------------
@@ -55,7 +57,7 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
     for (let index = 0; index < length; index++) {
       auxArray.push({
         dayNumber: index + 1,
-        dayString: days[startDays],
+        dayString: days[language][startDays],
       });
 
       if (startDays !== 6) {

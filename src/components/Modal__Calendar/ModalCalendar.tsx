@@ -1,7 +1,8 @@
-import { DefaultComponentText } from "./ModalCalendar-text";
+import { text } from "./text";
 import styles from "./ModalCalendar.module.css";
 import { IonButton, IonContent, IonDatetime, IonModal } from "@ionic/react";
 import { useState } from "react";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 interface ContainerProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ const ModalCalendar: React.FC<ContainerProps> = ({
   callback,
 }) => {
   // VARIABLES ---------------------
+  const language: typeAviableLanguages = "ita";
   // CONDITIONS --------------------
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   // FUNCTIONS ---------------------
@@ -36,7 +38,7 @@ const ModalCalendar: React.FC<ContainerProps> = ({
     >
       <IonContent className="ion-padding">
         <div className={styles.ModalCalendar__content}>
-          <h4>{DefaultComponentText.title}</h4>
+          <h4>{text[language].title}</h4>
           <IonDatetime
             multiple={false}
             onIonChange={(e) => {
@@ -46,7 +48,7 @@ const ModalCalendar: React.FC<ContainerProps> = ({
           ></IonDatetime>
         </div>
         <IonButton expand="block" onClick={() => handleConfirm()}>
-          {DefaultComponentText.cta}
+          {text[language].cta}
         </IonButton>
       </IonContent>
     </IonModal>

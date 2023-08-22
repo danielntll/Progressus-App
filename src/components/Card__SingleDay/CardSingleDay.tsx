@@ -1,10 +1,11 @@
-import { DefaultComponentText } from "./DefaultComponent-text";
+import { text } from "./text";
 import styles from "./CardSingleDay.module.css";
 
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { IonBadge, } from "@ionic/react";
 import { typeCardSingleDay } from "../../types/typeCardSingleDay";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 interface ContainerProps {
   data: typeCardSingleDay;
@@ -20,6 +21,7 @@ const CardSingleDay: React.FC<ContainerProps> = ({
   isToday,
 }) => {
   // VARIABLES ---------------------
+  const language: typeAviableLanguages = "ita";
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
   // RETURN ------------------------
@@ -51,7 +53,7 @@ const CardSingleDay: React.FC<ContainerProps> = ({
       </div>
       <div className={styles.CardSingleDay__IonBadge}>
         {isToday ? (
-          <IonBadge color="primary">{DefaultComponentText.isToday}</IonBadge>
+          <IonBadge color="primary">{text[language].isToday}</IonBadge>
         ) : null}
       </div>
     </div>

@@ -2,9 +2,15 @@ export const DefaultComponentText = {
   ita: {
     today: "oggi",
   },
+  eng: {
+    today: "Today",
+  },
 };
 
-export const days = ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"];
+export const days = {
+  ita: ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"],
+  eng: ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"],
+};
 
 export const months = {
   ita: [
