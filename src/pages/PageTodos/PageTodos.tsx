@@ -9,10 +9,14 @@ import {
 import styles from "./PageTodos.module.css";
 import { RoutesApp } from "../../routes";
 import SliderCalendar from "../../components/Slider__Calendar/SliderCalendar";
+import InputAddTodo from "../../components/Input__AddTodo/InputAddTodo";
+import { useState } from "react";
+
 
 const PageTodos: React.FC = () => {
   // VARIABLES ---------------------
   // CONDITIONS --------------------
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   // FUNCTIONS ---------------------
   // RETURN ------------------------
   return (
@@ -30,7 +34,14 @@ const PageTodos: React.FC = () => {
         </IonHeader>
         {/* INIT CONTENT ---------------------- */}
         <div className={styles.pageContainer}>
-          <SliderCalendar />
+          <SliderCalendar
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
+          <InputAddTodo
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
         </div>
         {/* END CONTENT ----------------------- */}
       </IonContent>

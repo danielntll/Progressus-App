@@ -1,4 +1,4 @@
-export const DefaultComponentText = {
+export const text = {
   ita: {
     today: "oggi",
   },
@@ -40,5 +40,35 @@ export const months = {
     "October",
     "November",
     "December",
+  ],
+};
+export const montsStrict = {
+  ita: [
+    "Gen",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Mag",
+    "Giu",
+    "Lug",
+    "Ago",
+    "Set",
+    "Ott",
+    "Nov",
+    "Dic",
+  ],
+  eng: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ],
 };

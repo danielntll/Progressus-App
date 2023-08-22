@@ -1,6 +1,12 @@
 p {
   margin: 0;
 }
+.padding-right-small {
+  padding-right: 8px;
+}
+.padding-bottom-small {
+  padding-bottom: 8px;
+}
 
 :root {
   /** primary **/

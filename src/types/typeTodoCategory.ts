@@ -7,3 +7,5 @@
  */
 
 export type typeTodoCategory = "Daily" | "Goal" | "Folder";
+
+export const todoCategory: typeTodoCategory[] = ["Daily", "Goal", "Folder"];
