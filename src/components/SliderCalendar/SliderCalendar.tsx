@@ -1,5 +1,5 @@
 import { IonButton, IonIcon } from "@ionic/react";
-import { calendar, calendarNumber } from "ionicons/icons";
+import { calendar } from "ionicons/icons";
 import { days, DefaultComponentText, months } from "./SliderCalendar-text";
 
 import styles from "./SliderCalendar.module.css";
@@ -37,16 +37,18 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
 
   // FUNCTIONS ---------------------
   const handleOpenModalCalendar = () => {
-    console.log("handleOpenModalCalendar");
     setIsModalCalendarOpen(true);
   };
 
   useEffect(() => {
-    handleSetMonthData(getDaysInMonth(selectedMonth, selectedYear));
+    console.log("UseEffect : ");
+    handleSetMonthData(getDaysInMonth(selectedMonth + 1, selectedYear));
     if (calendarSwiper) calendarSwiper.slideTo(selectedDay);
   }, [selectedDay, selectedMonth, selectedYear]);
 
   const handleSetMonthData = (length: number) => {
+    console.log("handleSetMonthData : ", length);
+    setMonthData([]);
     const auxArray: typeCardSingleDay[] = [];
     let startDays = selectedWeekDay + 1;
 
@@ -70,13 +72,23 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   };
 
   const handleChangeFullDate = (selectedDate: Date) => {
-    const newDate = new Date(selectedDate);
-    if (calendarSwiper) calendarSwiper.slideTo(selectedDay);
+    console.log("selectedDate : ", selectedDate);
+
+    const converted = new Date(selectedDate);
+    const selDay = converted.getDate();
+    const selMonth = converted.getMonth();
+    const selYear = converted.getFullYear();
+    const selWeekendDay = converted.getDay();
+
     setSelectedDate(selectedDate);
-    setSelectedDay(newDate.getDate());
-    setSelectedMonth(newDate.getMonth());
-    setSelectedYear(newDate.getFullYear());
-    setSelectedWeekDay(newDate.getDay());
+    setSelectedDay(selDay);
+    setSelectedMonth(selMonth);
+    setSelectedYear(selYear);
+    setSelectedWeekDay(selWeekendDay);
+
+    handleSetMonthData(getDaysInMonth(selMonth + 1, selYear));
+
+    if (calendarSwiper) calendarSwiper.slideTo(selDay);
   };
   // RETURN ------------------------
   return (
@@ -106,10 +118,6 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
           <Swiper
             onInit={(ev) => {
               setCalendarSwiper(ev);
-            }}
-            onActiveIndexChange={(e) => {
-              console.log(selectedDay);
-              console.log(e.activeIndex);
             }}
             centeredSlides={true}
             slidesPerView={4}
