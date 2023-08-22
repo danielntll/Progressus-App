@@ -1,6 +1,6 @@
 import { IonButton, IonIcon } from "@ionic/react";
 import { calendar } from "ionicons/icons";
-import { days, text, months } from "./text";
+import { text } from "./text";
 
 import styles from "./SliderCalendar.module.css";
 
@@ -14,6 +14,7 @@ import ModalCalendar from "../Modal__Calendar/ModalCalendar";
 import { typeCardSingleDay } from "../../types/typeCardSingleDay";
 import CardSingleDay from "../Card__SingleDay/CardSingleDay";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
+import { days, months } from "../../text/textDays&Months";
 
 interface ContainerProps { }
 

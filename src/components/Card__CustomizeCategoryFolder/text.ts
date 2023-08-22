@@ -1,8 +1,8 @@
 export const text = {
   ita: {
-    today: "oggi",
+    title: "Componente",
   },
   eng: {
-    today: "Today",
+    title: "Component",
   },
 };

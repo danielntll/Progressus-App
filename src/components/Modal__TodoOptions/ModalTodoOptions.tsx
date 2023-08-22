@@ -3,7 +3,6 @@ import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { text } from "./text";
 import { typeTodo } from "../../types/typeTodo";
 import { add, alertCircleOutline, closeCircle, removeCircleOutline } from "ionicons/icons";
-import { montsStrict } from "../Slider__Calendar/text";
 import { todoCategory } from "../../types/typeTodoCategory";
 import { textTodoCategory } from "../../text/textTodoCategory";
 import { useEffect, useState } from "react";
@@ -16,6 +15,9 @@ import "swiper/css/navigation";
 
 import styles from "./ModalTodoOptions.module.css";
 import CardCustomizeDaily from "../Card__CustomizeDaily/CardCustomizeDaily";
+import CardCustomizeCategoryGoal from "../Card__CustomizeCategoryGoal/CardCustomizeCategoryGoal";
+import CardCustomizeCategoryFolder from "../Card__CustomizeCategoryFolder/CardCustomizeCategoryFolder";
+import { montsStrict } from "../../text/textDays&Months";
 
 interface ContainerProps {
   isModalOptionsOpen: boolean,
@@ -42,7 +44,8 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
 
 
   const handleSetSelectedCategory = (value: any) => {
-    console.log(value.target.value + " ----- " + todoCategory[value.target.value[0]]);
+    categorySwiper.slideTo(todoCategory.indexOf(todoCategory[value.target.value[0]]));
+
     setTodo({ ...todo, categoryType: todoCategory[value.target.value[0]] });
   }
   const handleCallbackCreateToDo = () => {
@@ -187,25 +190,16 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
               }}
               centeredSlides={true}
               slidesPerView={1}
-              initialSlide={0}
+              initialSlide={todoCategory.indexOf(todo.categoryType)}
             >
               <SwiperSlide>
                 <CardCustomizeDaily />
               </SwiperSlide>
-
               <SwiperSlide>
-                <IonCard>
-                  <IonCardContent>
-                    Sarà aggiunto cascsdc
-                  </IonCardContent>
-                </IonCard>
+                <CardCustomizeCategoryGoal />
               </SwiperSlide>
               <SwiperSlide>
-                <IonCard>
-                  <IonCardContent>
-                    Sarà aggiunto cascsdc
-                  </IonCardContent>
-                </IonCard>
+                <CardCustomizeCategoryFolder />
               </SwiperSlide>
             </Swiper>
           </div>

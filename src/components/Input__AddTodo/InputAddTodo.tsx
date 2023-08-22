@@ -4,10 +4,11 @@ import styles from "./InputAddTodo.module.css";
 import { text } from "./text";
 import { add, checkmark, close, cogOutline, skullOutline, warningOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { montsStrict } from "../Slider__Calendar/text";
+
 import { typeTodoCategory } from "../../types/typeTodoCategory";
 import ModalTodoOptions from "../Modal__TodoOptions/ModalTodoOptions";
 import { defaultTodo, typeTodo } from "../../types/typeTodo";
+import { montsStrict } from "../../text/textDays&Months";
 
 interface ContainerProps {
   selectedDate: Date
