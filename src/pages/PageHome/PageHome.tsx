@@ -7,7 +7,6 @@ import {
 } from "@ionic/react";
 
 import styles from "./PageHome.module.css";
-import { PageHomeText } from "./PageHome-text";
 import { RoutesApp } from "../../routes";
 
 const PageHome: React.FC = () => {

@@ -7,7 +7,6 @@ import {
 } from "@ionic/react";
 
 import styles from "./PageTodos.module.css";
-import { PageTodosText } from "./PageTodos-text";
 import { RoutesApp } from "../../routes";
 import SliderCalendar from "../../components/Slider__Calendar/SliderCalendar";
 

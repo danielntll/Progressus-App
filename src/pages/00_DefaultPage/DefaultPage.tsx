@@ -8,7 +8,7 @@ import {
 import { RoutesApp } from "../../routes";
 
 import styles from "./DefaultPage.module.css";
-import { DefautlPageText } from "./DefautlPage-text";
+import { text } from "./text";
 
 const DefaultPage: React.FC = () => {
   // VARIABLES ---------------------
