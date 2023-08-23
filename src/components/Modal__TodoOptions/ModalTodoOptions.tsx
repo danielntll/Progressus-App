@@ -190,7 +190,7 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
               }}
               centeredSlides={true}
               slidesPerView={1}
-              initialSlide={todoCategory.indexOf(todo.categoryType)}
+              initialSlide={0}
             >
               <SwiperSlide>
                 <CardCustomizeDaily />

@@ -56,11 +56,6 @@ const CardCustomizeCategoryGoal: React.FC<ContainerProps> = () => {
     }
   }
 
-  useEffect(() => {
-    console.log("selectedDays: ", selectedGoalTypes);
-  }, [selectedGoalTypes])
-
-
 
   const handleCreateNewGoalType = () => {
     if (userLvl >= newGoalCategoryLvlRequired) {

@@ -44,16 +44,19 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   };
 
   useEffect(() => {
-    console.log("UseEffect : ");
     handleSetMonthData(getDaysInMonth(selectedMonth + 1, selectedYear));
     if (calendarSwiper) calendarSwiper.slideTo(selectedDay);
   }, [selectedDay, selectedMonth, selectedYear]);
 
   const handleSetMonthData = (length: number) => {
-    console.log("handleSetMonthData : ", length);
+    const monthIndex = selectedMonth; // 0-11
+    const yearNumber = selectedYear;
+
+    const firstDayOfMonth = new Date(yearNumber + "-" + (monthIndex + 1) + "-" + 1)
+
     setMonthData([]);
     const auxArray: typeCardSingleDay[] = [];
-    let startDays = selectedWeekDay + 1;
+    let startDays = firstDayOfMonth.getDay();
 
     for (let index = 0; index < length; index++) {
       auxArray.push({
@@ -75,7 +78,6 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   };
 
   const handleChangeFullDate = (selectedDate: Date) => {
-    console.log("selectedDate : ", selectedDate);
 
     const converted = new Date(selectedDate);
     const selDay = converted.getDate();

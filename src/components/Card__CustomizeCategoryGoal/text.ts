@@ -1,6 +1,6 @@
 export const text = {
   ita: {
-    subtitle: "Selezione tipologia di obiettivo",
+    subtitle: "Personalizza",
     createP: "Non trovi la sottocategoria giusta?",
     createH: "Creane una tu",
     toastSuccess: "Nuovo obiettivo creato!",
