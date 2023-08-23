@@ -25,6 +25,8 @@ import styles from "./PageRegister.module.css";
 import { text } from "./text";
 import { language } from "ionicons/icons";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
+import { typeUser } from "../../types/typeUser";
+import { firebaseUserActions } from "../../firebase/firebaseUserActions";
 
 
 
@@ -44,7 +46,27 @@ const PageRegister: React.FC = () => {
   const handleRegister = async () => {
     try {
       setStatus({ loading: true, error: false });
-      await createUserWithEmailAndPassword(auth, email, password)
+      await createUserWithEmailAndPassword(auth, email, password).then((resp) => {
+        console.log(resp.user.email);
+        console.log(resp.user.uid);
+
+        const objUser: typeUser = {
+          UID: resp.user.uid,
+          email: resp.user.email!,
+          name: "",
+          imageUrl: `https://robohash.org/${Date.now()}.png`,
+          createdAt: Date.now(),
+          description: ""
+        }
+
+        firebaseUserActions.CREATE(objUser).then(() => {
+          console.log("PageRegister User creato.")
+        }).catch((error) => {
+          setStatus({ loading: false, error: true });
+          console.log("error:", error);
+        });
+
+      })
     } catch (error) {
       setStatus({ loading: false, error: true });
       console.log("error:", error);
