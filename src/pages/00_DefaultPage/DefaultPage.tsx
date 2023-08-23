@@ -12,11 +12,13 @@ import { text } from "./text";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { useContext } from "react";
 import { TodosContext } from "../../utils/reducers/reducerTodo";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 const DefaultPage: React.FC = () => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
   // RETURN ------------------------

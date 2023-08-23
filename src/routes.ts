@@ -1,4 +1,11 @@
-import { home, homeOutline, list, listOutline } from "ionicons/icons";
+import {
+  home,
+  homeOutline,
+  list,
+  listOutline,
+  logIn,
+  logInOutline,
+} from "ionicons/icons";
 
 export const RoutesApp = {
   pageDefault: {
@@ -23,6 +30,22 @@ export const RoutesApp = {
     icon: {
       active: list,
       notActive: listOutline,
+    },
+  },
+  pageLogin: {
+    path: "/login",
+    title: "Login",
+    icon: {
+      active: logIn,
+      notActive: logInOutline,
+    },
+  },
+  pageRegister: {
+    path: "/register",
+    title: "Register",
+    icon: {
+      active: logIn,
+      notActive: logInOutline,
     },
   },
 };

@@ -10,7 +10,7 @@
 # testing
 /coverage
 
-/src/firebase/config.js
+/src/firebase
 # production
 /build
 
@@ -30,3 +30,4 @@ yarn-error.log*
 
 # Optional eslint cache
 .eslintcache
+src/firebase/firebase.ts
