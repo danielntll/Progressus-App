@@ -6,6 +6,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { IonBadge, } from "@ionic/react";
 import { typeCardSingleDay } from "../../types/typeCardSingleDay";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
+import { constColors } from "../../constants/colors";
 
 interface ContainerProps {
   data: typeCardSingleDay;
@@ -42,10 +43,10 @@ const CardSingleDay: React.FC<ContainerProps> = ({
         <CircularProgressbar
           value={50}
           text={`${50}%`}
-          strokeWidth={8}
+          strokeWidth={12}
           styles={buildStyles({
-            pathColor: `#3880ff`,
-            textColor: "#3880ff",
+            pathColor: constColors.primary,
+            textColor: constColors.primary,
             trailColor: "#d6d6d6",
             backgroundColor: "#3e98c7",
           })}

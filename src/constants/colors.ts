@@ -1,0 +1,18 @@
+export const constColors = {
+  primary: "#2dc47d",
+  secondary: "#36ffa0",
+  tertiary: "#008a94",
+  success: "#2dd36f",
+  warning: "#ffc409",
+  danger: "#eb445a",
+  dark: "#222428",
+  medium: "#92949c",
+  light: "#f4f5f8",
+  red: "#ff2424",
+  orange: "#fd8c1c",
+  yellow: "#ffff14",
+  green: "#00ff40",
+  sky: "#00bfff",
+  blue: "#0040ff",
+  purple: "#4000ff",
+};
