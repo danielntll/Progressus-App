@@ -10,11 +10,13 @@ import styles from "./PageTodos.module.css";
 import { RoutesApp } from "../../routes";
 import SliderCalendar from "../../components/Slider__Calendar/SliderCalendar";
 import InputAddTodo from "../../components/Input__AddTodo/InputAddTodo";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TodosContext } from "../../utils/reducers/reducerTodo";
 
 
 const PageTodos: React.FC = () => {
   // VARIABLES ---------------------
+  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   // CONDITIONS --------------------
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   // FUNCTIONS ---------------------

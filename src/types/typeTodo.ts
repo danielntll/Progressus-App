@@ -5,7 +5,7 @@ export type typeTodo = {
   userUID: string;
   title: string;
   description: string | null;
-  createdAt: Date | null;
+  createdAt: number | null;
   deadlineDate: string | string[] | null;
   completedDate: Date | null;
   completed: boolean;

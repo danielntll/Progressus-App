@@ -3,11 +3,12 @@ import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import styles from "./InputAddTodo.module.css";
 import { text } from "./text";
 import { add, checkmark, close, cogOutline, skullOutline, warningOutline } from "ionicons/icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import ModalTodoOptions from "../Modal__TodoOptions/ModalTodoOptions";
 import { defaultTodo, typeTodo } from "../../types/typeTodo";
 import { montsStrict } from "../../text/textDays&Months";
+import { TodosContext } from "../../utils/reducers/reducerTodo";
 
 interface ContainerProps {
   selectedDate: Date
@@ -19,6 +20,8 @@ const InputAddTodo: React.FC<ContainerProps> = ({
   setSelectedDate,
 }) => {
   // VARIABLES ---------------------
+  const { stateTodos, dispatchTodos } = useContext(TodosContext);
+
   const { uid } = { uid: "Authuser" };
   const language: typeAviableLanguages = "ita";
   const [presentToast] = useIonToast();
@@ -43,10 +46,14 @@ const InputAddTodo: React.FC<ContainerProps> = ({
       try {
         //CONFIG NEW ---------------
         const todoToUpload = todo;
-        todoToUpload.createdAt = selectedDate;
+        todoToUpload.createdAt = Date.now();
         todoToUpload.userUID = uid;
 
         console.log(todoToUpload);
+        dispatchTodos({
+          type: "ADD",
+          refTodo: todoToUpload
+        })
         //RESET & FEEDBACK ---------
         setTodo(defaultTodo);
         toast.success();

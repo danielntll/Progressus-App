@@ -31,8 +31,9 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import PageHome from "./pages/PageHome/PageHome";
 import { RoutesApp } from "./routes";
-import { useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import PageTodos from "./pages/PageTodos/PageTodos";
+import { TodosContext, reducerTodo } from "./utils/reducers/reducerTodo";
 
 setupIonicReact();
 
@@ -40,63 +41,70 @@ const App: React.FC = () => {
   // VARIABLES ---------------------
   // CONDITIONS --------------------
   const [currentTab, setCurrentTab] = useState<string>("");
+  const [stateTodos, dispatchTodos] = useReducer(reducerTodo, []);
   // FUNCTIONS ---------------------
+  useEffect(() => {
+    console.log("TODOS STATE : ", stateTodos);
+  }, [stateTodos])
   // RETURN ------------------------
   return (
     <IonApp>
       <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            {/* DEFAULT ROUTING ---------- */}
-            <Route exact path="/">
-              <Redirect to={RoutesApp.pageHome.path} />
-            </Route>
-            {/* PAGES --------------- */}
-            <Route exact path={RoutesApp.pageHome.path}>
-              <PageHome />
-            </Route>
-            <Route exact path={RoutesApp.pageTodos.path}>
-              <PageTodos />
-            </Route>
-          </IonRouterOutlet>
+        <TodosContext.Provider value={{ stateTodos, dispatchTodos }}>
+          <IonTabs>
+            <IonRouterOutlet>
+              {/* DEFAULT ROUTING ---------- */}
+              <Route exact path="/">
+                <Redirect to={RoutesApp.pageHome.path} />
+              </Route>
+              {/* PAGES --------------- */}
+              <Route exact path={RoutesApp.pageHome.path}>
+                <PageHome />
+              </Route>
+              <Route exact path={RoutesApp.pageTodos.path}>
+                <PageTodos />
+              </Route>
+            </IonRouterOutlet>
 
-          {/* TABBAR ---------------- */}
-          <IonTabBar
-            onIonTabsDidChange={(e) => setCurrentTab(e.detail.tab)}
-            slot="bottom"
-          >
-            {/* INIT TAB BUTTONS ----------- */}
-            <IonTabButton
-              tab={RoutesApp.pageHome.title}
-              href={RoutesApp.pageHome.path}
+
+            {/* TABBAR ---------------- */}
+            <IonTabBar
+              onIonTabsDidChange={(e) => setCurrentTab(e.detail.tab)}
+              slot="bottom"
             >
-              <IonIcon
-                aria-hidden="true"
-                icon={
-                  currentTab === RoutesApp.pageHome.title
-                    ? RoutesApp.pageHome.icon.active
-                    : RoutesApp.pageHome.icon.notActive
-                }
-              />
-              <IonLabel>{RoutesApp.pageHome.title}</IonLabel>
-            </IonTabButton>
-            <IonTabButton
-              tab={RoutesApp.pageTodos.title}
-              href={RoutesApp.pageTodos.path}
-            >
-              <IonIcon
-                aria-hidden="true"
-                icon={
-                  currentTab === RoutesApp.pageTodos.title
-                    ? RoutesApp.pageTodos.icon.active
-                    : RoutesApp.pageTodos.icon.notActive
-                }
-              />
-              <IonLabel>{RoutesApp.pageTodos.title}</IonLabel>
-            </IonTabButton>
-            {/* END TAB BUTTONS ------------ */}
-          </IonTabBar>
-        </IonTabs>
+              {/* INIT TAB BUTTONS ----------- */}
+              <IonTabButton
+                tab={RoutesApp.pageHome.title}
+                href={RoutesApp.pageHome.path}
+              >
+                <IonIcon
+                  aria-hidden="true"
+                  icon={
+                    currentTab === RoutesApp.pageHome.title
+                      ? RoutesApp.pageHome.icon.active
+                      : RoutesApp.pageHome.icon.notActive
+                  }
+                />
+                <IonLabel>{RoutesApp.pageHome.title}</IonLabel>
+              </IonTabButton>
+              <IonTabButton
+                tab={RoutesApp.pageTodos.title}
+                href={RoutesApp.pageTodos.path}
+              >
+                <IonIcon
+                  aria-hidden="true"
+                  icon={
+                    currentTab === RoutesApp.pageTodos.title
+                      ? RoutesApp.pageTodos.icon.active
+                      : RoutesApp.pageTodos.icon.notActive
+                  }
+                />
+                <IonLabel>{RoutesApp.pageTodos.title}</IonLabel>
+              </IonTabButton>
+              {/* END TAB BUTTONS ------------ */}
+            </IonTabBar>
+          </IonTabs>
+        </TodosContext.Provider>
       </IonReactRouter>
     </IonApp>
   );

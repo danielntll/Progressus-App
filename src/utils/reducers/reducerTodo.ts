@@ -1,3 +1,4 @@
+import { createContext } from "react";
 import { typeReducerTodoActions } from "../../types/typeReducerTodoActions";
 import { typeTodo } from "../../types/typeTodo";
 
@@ -58,3 +59,5 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
       return state;
   }
 };
+
+export const TodosContext = createContext<any>([]);
