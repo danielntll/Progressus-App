@@ -12,11 +12,13 @@ import SliderCalendar from "../../components/Slider__Calendar/SliderCalendar";
 import InputAddTodo from "../../components/Input__AddTodo/InputAddTodo";
 import { useContext, useState } from "react";
 import { TodosContext } from "../../utils/reducers/reducerTodo";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 
 
 const PageTodos: React.FC = () => {
   // VARIABLES ---------------------
   const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   // CONDITIONS --------------------
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   // FUNCTIONS ---------------------

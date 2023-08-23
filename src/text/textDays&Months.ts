@@ -1,6 +1,6 @@
 export const days = {
   ita: ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"],
-  eng: ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"],
+  eng: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
 };
 
 export const months = {

@@ -5,6 +5,9 @@ import { typeTodo } from "../../types/typeTodo";
 import { add, alertCircleOutline, closeCircle, removeCircleOutline } from "ionicons/icons";
 
 import { montsStrict } from "../../text/textDays&Months";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { useContext } from "react";
+import { TodosContext } from "../../utils/reducers/reducerTodo";
 
 interface ContainerProps {
   isModalOptionsOpen: boolean,
@@ -24,7 +27,9 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
   selectedDate
 }) => {
   // VARIABLES ---------------------
-  const language: typeAviableLanguages = "ita";
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
+  const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
 

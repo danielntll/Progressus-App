@@ -2,13 +2,17 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, Ion
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import styles from "./CardCustomizeDaily.module.css";
 import { text } from "./text";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { TodosContext } from "../../utils/reducers/reducerTodo";
 
 interface ContainerProps { }
 
 const CardCustomizeDaily: React.FC<ContainerProps> = () => {
   // VARIABLES ---------------------
-  const language: typeAviableLanguages = "ita";
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
+  const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
   // RETURN ------------------------

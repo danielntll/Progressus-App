@@ -9,9 +9,14 @@ import { RoutesApp } from "../../routes";
 
 import styles from "./DefaultPage.module.css";
 import { text } from "./text";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { useContext } from "react";
+import { TodosContext } from "../../utils/reducers/reducerTodo";
 
 const DefaultPage: React.FC = () => {
   // VARIABLES ---------------------
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
+  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
   // RETURN ------------------------

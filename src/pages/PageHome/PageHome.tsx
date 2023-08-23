@@ -8,9 +8,12 @@ import {
 
 import styles from "./PageHome.module.css";
 import { RoutesApp } from "../../routes";
+import { useContext } from "react";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 
 const PageHome: React.FC = () => {
   // VARIABLES ---------------------
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
   // RETURN ------------------------

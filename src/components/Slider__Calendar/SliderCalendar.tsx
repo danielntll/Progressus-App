@@ -8,13 +8,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getDaysInMonth } from "../../utils/getDaysInMonth";
 import ModalCalendar from "../Modal__Calendar/ModalCalendar";
 import { typeCardSingleDay } from "../../types/typeCardSingleDay";
 import CardSingleDay from "../Card__SingleDay/CardSingleDay";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { days, months } from "../../text/textDays&Months";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { TodosContext } from "../../utils/reducers/reducerTodo";
 
 
 
@@ -30,7 +32,9 @@ const SliderCalendar: React.FC<ContainerProps> = ({
   setSelectedDate,
 }) => {
   // VARIABLES ---------------------
-  const language: typeAviableLanguages = "ita";
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
+  const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const language: typeAviableLanguages = stateLanguage;
   const today = new Date();
 
   // CONDITIONS --------------------

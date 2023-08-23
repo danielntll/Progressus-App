@@ -9,6 +9,7 @@ import ModalTodoOptions from "../Modal__TodoOptions/ModalTodoOptions";
 import { defaultTodo, typeTodo } from "../../types/typeTodo";
 import { montsStrict } from "../../text/textDays&Months";
 import { TodosContext } from "../../utils/reducers/reducerTodo";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 
 interface ContainerProps {
   selectedDate: Date
@@ -20,10 +21,11 @@ const InputAddTodo: React.FC<ContainerProps> = ({
   setSelectedDate,
 }) => {
   // VARIABLES ---------------------
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const language: typeAviableLanguages = stateLanguage;
 
   const { uid } = { uid: "Authuser" };
-  const language: typeAviableLanguages = "ita";
   const [presentToast] = useIonToast();
 
   // CONDITIONS --------------------

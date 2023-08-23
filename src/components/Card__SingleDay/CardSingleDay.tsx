@@ -7,6 +7,9 @@ import { IonBadge, } from "@ionic/react";
 import { typeCardSingleDay } from "../../types/typeCardSingleDay";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { constColors } from "../../constants/colors";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { TodosContext } from "../../utils/reducers/reducerTodo";
+import { useContext } from "react";
 
 interface ContainerProps {
   data: typeCardSingleDay;
@@ -22,7 +25,9 @@ const CardSingleDay: React.FC<ContainerProps> = ({
   isToday,
 }) => {
   // VARIABLES ---------------------
-  const language: typeAviableLanguages = "ita";
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
+  const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
   // RETURN ------------------------
