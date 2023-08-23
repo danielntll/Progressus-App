@@ -3,9 +3,8 @@ import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import styles from "./InputAddTodo.module.css";
 import { text } from "./text";
 import { add, checkmark, close, cogOutline, skullOutline, warningOutline } from "ionicons/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { typeTodoCategory } from "../../types/typeTodoCategory";
 import ModalTodoOptions from "../Modal__TodoOptions/ModalTodoOptions";
 import { defaultTodo, typeTodo } from "../../types/typeTodo";
 import { montsStrict } from "../../text/textDays&Months";
@@ -20,6 +19,7 @@ const InputAddTodo: React.FC<ContainerProps> = ({
   setSelectedDate,
 }) => {
   // VARIABLES ---------------------
+  const { uid } = { uid: "Authuser" };
   const language: typeAviableLanguages = "ita";
   const [presentToast] = useIonToast();
 
@@ -41,8 +41,15 @@ const InputAddTodo: React.FC<ContainerProps> = ({
       toast.warning();
     } else {
       try {
-        toast.success();
+        //CONFIG NEW ---------------
+        const todoToUpload = todo;
+        todoToUpload.createdAt = selectedDate;
+        todoToUpload.userUID = uid;
+
+        console.log(todoToUpload);
+        //RESET & FEEDBACK ---------
         setTodo(defaultTodo);
+        toast.success();
       } catch (error) {
         toast.danger();
       }
@@ -55,8 +62,6 @@ const InputAddTodo: React.FC<ContainerProps> = ({
     setIsModalOptionsOpen(true);
   }
 
-
-
   const toast = {
     success: () => {
       presentToast({
@@ -67,8 +72,7 @@ const InputAddTodo: React.FC<ContainerProps> = ({
         icon: checkmark,
         buttons: [
           {
-            icon: cogOutline,
-            text: text[language].buttonModifyTodo
+            text: text[language].closeToast
           }
         ]
       });

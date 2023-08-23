@@ -1,6 +1,6 @@
 export const text = {
   ita: {
-    title: "Opzioni Todo",
+    title: "Daily Todo",
     close: "Chiudi",
     add: "Aggiungi",
     today: "Oggi",
@@ -11,7 +11,7 @@ export const text = {
     category: "Categoria",
   },
   eng: {
-    title: "Options Todo",
+    title: "Daily Todo",
     close: "Close",
     add: "Add",
     today: "Today",

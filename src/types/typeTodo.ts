@@ -5,7 +5,7 @@ export type typeTodo = {
   userUID: string;
   title: string;
   description: string | null;
-  createdAt: string;
+  createdAt: Date | null;
   deadlineDate: string | string[] | null;
   completedDate: string | null;
   completed: boolean;
@@ -19,7 +19,7 @@ export const defaultTodo: typeTodo = {
   userUID: "",
   title: "",
   description: "",
-  createdAt: "",
+  createdAt: null,
   deadlineDate: null,
   completedDate: null,
   completed: false,

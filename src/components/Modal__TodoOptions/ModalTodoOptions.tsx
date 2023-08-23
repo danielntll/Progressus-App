@@ -1,22 +1,9 @@
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonSegment, IonSegmentButton, IonTextarea, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonTextarea, IonTitle, IonToolbar } from "@ionic/react";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { text } from "./text";
 import { typeTodo } from "../../types/typeTodo";
 import { add, alertCircleOutline, closeCircle, removeCircleOutline } from "ionicons/icons";
-import { todoCategory } from "../../types/typeTodoCategory";
-import { textTodoCategory } from "../../text/textTodoCategory";
-import { useEffect, useState } from "react";
 
-
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-
-import styles from "./ModalTodoOptions.module.css";
-import CardCustomizeDaily from "../Card__CustomizeDaily/CardCustomizeDaily";
-import CardCustomizeCategoryGoal from "../Card__CustomizeCategoryGoal/CardCustomizeCategoryGoal";
-import CardCustomizeCategoryFolder from "../Card__CustomizeCategoryFolder/CardCustomizeCategoryFolder";
 import { montsStrict } from "../../text/textDays&Months";
 
 interface ContainerProps {
@@ -39,15 +26,8 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
   // VARIABLES ---------------------
   const language: typeAviableLanguages = "ita";
   // CONDITIONS --------------------
-  const [categorySwiper, setCategorySwiper] = useState<any>();
   // FUNCTIONS ---------------------
 
-
-  const handleSetSelectedCategory = (value: any) => {
-    categorySwiper.slideTo(todoCategory.indexOf(todoCategory[value.target.value[0]]));
-
-    setTodo({ ...todo, categoryType: todoCategory[value.target.value[0]] });
-  }
   const handleCallbackCreateToDo = () => {
     handleCreateTodo();
   }
@@ -157,52 +137,6 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
             </IonItem>
           </IonList>
 
-          <div className="ion-padding">
-            <IonLabel>
-              <p className="padding-bottom-small">
-                {text[language].category}
-              </p>
-            </IonLabel>
-
-            <IonSegment
-              value={todoCategory.indexOf(todo.categoryType) + "-" + todo.categoryType}
-              onIonChange={(e) => {
-                handleSetSelectedCategory(e)
-              }}
-            >
-              {todoCategory.map((_: string, index: number) => {
-                return (
-                  <IonSegmentButton
-                    value={(index + "-" + todoCategory[index]).toString()}
-                    key={index + "categories"}
-                  >
-                    <IonLabel>{textTodoCategory[language][todoCategory[index]]}</IonLabel>
-                  </IonSegmentButton>
-                )
-              })}
-            </IonSegment>
-          </div>
-
-          <div>
-            <Swiper
-              onInit={(ev) => {
-                setCategorySwiper(ev);
-              }}
-              centeredSlides={true}
-              slidesPerView={1}
-              initialSlide={0}
-            >
-              <SwiperSlide>
-                <CardCustomizeDaily />
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardCustomizeCategoryGoal />
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardCustomizeCategoryFolder />
-              </SwiperSlide>
-            </Swiper>
-          </div>
 
 
         </IonContent>

@@ -16,9 +16,19 @@ import CardSingleDay from "../Card__SingleDay/CardSingleDay";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { days, months } from "../../text/textDays&Months";
 
-interface ContainerProps { }
 
-const SliderCalendar: React.FC<ContainerProps> = () => {
+
+
+
+interface ContainerProps {
+  selectedDate: Date,
+  setSelectedDate: (newDate: Date) => void;
+}
+
+const SliderCalendar: React.FC<ContainerProps> = ({
+  selectedDate,
+  setSelectedDate,
+}) => {
   // VARIABLES ---------------------
   const language: typeAviableLanguages = "ita";
   const today = new Date();
@@ -28,12 +38,11 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
   const [isModalCalendarOpen, setIsModalCalendarOpen] =
     useState<boolean>(false);
 
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedYear, setSelectedYear] = useState<number>(today.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
-  const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
+  const [selectedYear, setSelectedYear] = useState<number>(selectedDate.getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState<number>(selectedDate.getMonth());
+  const [selectedDay, setSelectedDay] = useState<number>(selectedDate.getDate());
   const [selectedWeekDay, setSelectedWeekDay] = useState<number>(
-    today.getDay()
+    selectedDate.getDay()
   );
 
   const [monthData, setMonthData] = useState<typeCardSingleDay[]>();
@@ -45,6 +54,7 @@ const SliderCalendar: React.FC<ContainerProps> = () => {
 
   useEffect(() => {
     handleSetMonthData(getDaysInMonth(selectedMonth + 1, selectedYear));
+    setSelectedDate(new Date(selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay))
     if (calendarSwiper) calendarSwiper.slideTo(selectedDay);
   }, [selectedDay, selectedMonth, selectedYear]);
 
