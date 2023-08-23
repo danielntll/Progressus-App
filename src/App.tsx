@@ -46,7 +46,7 @@ setupIonicReact();
 const App: React.FC = () => {
   // VARIABLES ---------------------
   // CONDITIONS --------------------
-  const { auth } = useAuthInit();
+  const { auth, loading } = useAuthInit();
 
   const [currentTab, setCurrentTab] = useState<string>("");
   const [stateTodos, dispatchTodos] = useReducer(reducerTodo, []);
@@ -104,6 +104,10 @@ const App: React.FC = () => {
       </Route>
     </>
   )
+
+  if (loading) {
+    return <IonLoading isOpen={loading} />;
+  }
 
   // RETURN ------------------------
   return (

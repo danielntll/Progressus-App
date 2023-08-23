@@ -44,9 +44,7 @@ const PageRegister: React.FC = () => {
   const handleRegister = async () => {
     try {
       setStatus({ loading: true, error: false });
-      await createUserWithEmailAndPassword(auth, email, password).then(() => {
-
-      });
+      await createUserWithEmailAndPassword(auth, email, password)
     } catch (error) {
       setStatus({ loading: false, error: true });
       console.log("error:", error);
