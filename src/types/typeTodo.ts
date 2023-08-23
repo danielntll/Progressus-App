@@ -7,7 +7,7 @@ export type typeTodo = {
   description: string | null;
   createdAt: Date | null;
   deadlineDate: string | string[] | null;
-  completedDate: string | null;
+  completedDate: Date | null;
   completed: boolean;
   attachments: string[] | null;
   categoryType: typeTodoCategory;
