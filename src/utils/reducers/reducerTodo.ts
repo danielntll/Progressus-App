@@ -5,15 +5,15 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
   switch (action.type) {
     case "ADD":
       // LOCAL
-      const auxTodos_ADD = [...state];
-      auxTodos_ADD.push(action.refTodo);
+      const auxTodos_ADD: typeTodo[] = [...state];
+      auxTodos_ADD.push(action.refTodo!);
       // SERVER
       // here
       return auxTodos_ADD;
 
     case "DELETE":
       // LOCAL
-      const auxTodos_DELETE = [...state].filter(
+      const auxTodos_DELETE: typeTodo[] = [...state].filter(
         (todos: typeTodo) => todos.todoUID !== action.refTodo?.todoUID
       );
       // SERVER
