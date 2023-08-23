@@ -75,13 +75,13 @@ const PageRegister: React.FC = () => {
             <IonItem>
               <IonLabel position='floating'>Email</IonLabel>
               <IonInput type="email" value={email}
-                onIonChange={(event) => setEmail(event.detail.value!)}
+                onIonInput={(event) => setEmail(event.detail.value!)}
               />
             </IonItem>
             <IonItem>
               <IonLabel position='floating'>Password</IonLabel>
               <IonInput type="password" value={password}
-                onIonChange={(event) => setPassword(event.detail.value!)} />
+                onIonInput={(event) => setPassword(event.detail.value!)} />
             </IonItem>
           </IonList>
           <IonButton

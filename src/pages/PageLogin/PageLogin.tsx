@@ -19,7 +19,7 @@ import { useContext, useState } from "react";
 import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { auth } from "../../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Redirect, useHistory } from "react-router";
+import { useHistory } from "react-router";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 
@@ -33,7 +33,6 @@ const PageLogin: React.FC = () => {
   const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
 
-  const history = useHistory();
   // CONDITIONS --------------------
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -42,14 +41,9 @@ const PageLogin: React.FC = () => {
   const handleLogin = async () => {
     try {
       setStatus({ loading: true, error: false });
-      const credential = await signInWithEmailAndPassword(auth, email, password).then(() => {
-
-      });
-      console.log("credenziali:", credential);
-
+      await signInWithEmailAndPassword(auth, email, password)
     } catch (error) {
       setStatus({ loading: false, error: true });
-      console.log("error:", error);
     }
   };
 
@@ -73,13 +67,13 @@ const PageLogin: React.FC = () => {
             <IonItem>
               <IonLabel position='floating'>Email</IonLabel>
               <IonInput type="email" value={email}
-                onIonChange={(event) => setEmail(event.detail.value!)}
+                onIonInput={(event) => setEmail(event.detail.value!)}
               />
             </IonItem>
             <IonItem>
               <IonLabel position='floating'>Password</IonLabel>
               <IonInput type="password" value={password}
-                onIonChange={(event) => setPassword(event.detail.value!)} />
+                onIonInput={(event) => setPassword(event.detail.value!)} />
             </IonItem>
           </IonList>
 
