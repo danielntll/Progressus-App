@@ -28,22 +28,20 @@ const CardCustomizeCategoryGoal: React.FC<ContainerProps> = () => {
     remove: (dayIndex: number) => {
       setSelectedDays(selectedDays.filter((dI) => dI !== dayIndex))
     },
-
   }
 
-  const check = (dayIndex: number) => {
-    if (selectedDays.includes(dayIndex)) {
-      console.log("C'è già ")
-      handleSelect.remove(dayIndex)
+  const handleSelectDay = (value: boolean, dayIndex: number) => {
+    if (!value) {
+      handleSelect.remove(dayIndex);
     } else {
-      console.log("C'è Nope")
-      handleSelect.add(dayIndex)
+      handleSelect.add(dayIndex);
     }
   }
 
   useEffect(() => {
-    console.log("selectedDays : ", selectedDays);
+    console.log("selectedDays: ", selectedDays);
   }, [selectedDays])
+
 
 
   const handleCreateNewGoalType = () => {
@@ -96,13 +94,13 @@ const CardCustomizeCategoryGoal: React.FC<ContainerProps> = () => {
     <div className={styles.CardCustomizeCategoryGoal__row}>
       {days[language].map((day: string, index: number) => {
         return (
-          <div key={index + day} onClick={() => {
-            check(index)
-          }} className={styles.CardCustomizeCategoryGoal__daysBox}>
+          <div key={index + day}
+            className={styles.CardCustomizeCategoryGoal__daysBox}
+          >
             <IonLabel>
               <p>{day}</p>
             </IonLabel>
-            <IonCheckbox color={"primary"} />
+            <IonCheckbox onIonChange={(e) => { handleSelectDay(e.detail.checked, index) }} color={"primary"} />
           </div>
         )
       })}
