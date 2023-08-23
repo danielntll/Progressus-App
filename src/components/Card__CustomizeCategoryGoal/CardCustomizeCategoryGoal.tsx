@@ -19,9 +19,10 @@ const CardCustomizeCategoryGoal: React.FC<ContainerProps> = () => {
 
   // CONDITIONS --------------------
   const [selectedDays, setSelectedDays] = useState<number[]>([]);
+  const [selectedGoalTypes, setSelectedGoalTypes] = useState<typeGoalType[]>([]);
 
   // FUNCTIONS ---------------------
-  const handleSelect = {
+  const handleDays = {
     add: (dayIndex: number) => {
       setSelectedDays(selectedDays.concat(dayIndex));
     },
@@ -30,17 +31,34 @@ const CardCustomizeCategoryGoal: React.FC<ContainerProps> = () => {
     },
   }
 
+  const handleGoalTypes = {
+    add: (goalType: typeGoalType) => {
+      setSelectedGoalTypes(selectedGoalTypes.concat(goalType));
+    },
+    remove: (goalType: typeGoalType) => {
+      setSelectedGoalTypes(selectedGoalTypes.filter((goal: typeGoalType) => goal !== goalType));
+    }
+  }
+
   const handleSelectDay = (value: boolean, dayIndex: number) => {
     if (!value) {
-      handleSelect.remove(dayIndex);
+      handleDays.remove(dayIndex);
     } else {
-      handleSelect.add(dayIndex);
+      handleDays.add(dayIndex);
+    }
+  }
+
+  const handleSelectGoalType = (value: boolean, goalType: typeGoalType) => {
+    if (!value) {
+      handleGoalTypes.remove(goalType);
+    } else {
+      handleGoalTypes.add(goalType);
     }
   }
 
   useEffect(() => {
-    console.log("selectedDays: ", selectedDays);
-  }, [selectedDays])
+    console.log("selectedDays: ", selectedGoalTypes);
+  }, [selectedGoalTypes])
 
 
 
@@ -116,7 +134,10 @@ const CardCustomizeCategoryGoal: React.FC<ContainerProps> = () => {
               <h3>{goalType.title}</h3>
               <p>{goalType.description}</p>
             </IonLabel>
-            <IonCheckbox onClick={() => { }} color={goalType.color} />
+            <IonCheckbox
+              onIonChange={(e) => { handleSelectGoalType(e.detail.checked, goalType) }}
+              color={goalType.color}
+            />
           </IonItem>
         )
       })}
