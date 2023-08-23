@@ -5,9 +5,12 @@
 /.pnp
 .pnp.js
 
+/package-lock.json
+
 # testing
 /coverage
 
+/src/firebase
 # production
 /build
 
@@ -27,3 +30,4 @@ yarn-error.log*
 
 # Optional eslint cache
 .eslintcache
+src/firebase/firebase.ts

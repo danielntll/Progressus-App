@@ -5,12 +5,20 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { RoutesApp } from "../../routes";
 
 import styles from "./DefaultPage.module.css";
-import { DefautlPageText } from "./DefautlPage-text";
+import { text } from "./text";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { useContext } from "react";
+import { TodosContext } from "../../utils/reducers/reducerTodo";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 const DefaultPage: React.FC = () => {
   // VARIABLES ---------------------
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
+  const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
   // RETURN ------------------------
@@ -18,13 +26,13 @@ const DefaultPage: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>{DefautlPageText.title}</IonTitle>
+          <IonTitle>{RoutesApp.pageDefault.title}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{DefautlPageText.title}</IonTitle>
+            <IonTitle size="large">{RoutesApp.pageDefault.title}</IonTitle>
           </IonToolbar>
         </IonHeader>
         {/* INIT CONTENT ---------------------- */}

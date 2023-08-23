@@ -7,11 +7,17 @@ import {
 } from "@ionic/react";
 
 import styles from "./PageHome.module.css";
-import { PageHomeText } from "./PageHome-text";
 import { RoutesApp } from "../../routes";
+import { useContext, useEffect } from "react";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { Redirect, useHistory } from "react-router";
+import { useAuth } from "../../firebase/auth";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 const PageHome: React.FC = () => {
   // VARIABLES ---------------------
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
+  const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
   // RETURN ------------------------

@@ -1,0 +1,24 @@
+.container {
+}
+.CardCustomizeCategoryGoal__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.CardCustomizeCategoryGoal__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.CardCustomizeCategoryGoal__daysBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  gap: 9px;
+  border-radius: 8px;
+}

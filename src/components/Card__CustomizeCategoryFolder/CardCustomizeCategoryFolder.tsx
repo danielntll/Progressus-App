@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
+import styles from "./CardCustomizeCategoryFolder.module.css";
+import { text } from "./text";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { TodosContext } from "../../utils/reducers/reducerTodo";
-import styles from "./DefaultComponent.module.css";
-import { text } from "./text";
 
 interface ContainerProps { }
 
-const DefaultComponent: React.FC<ContainerProps> = () => {
+const CardCustomizeCategoryFolder: React.FC<ContainerProps> = () => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   const { stateTodos, dispatchTodos } = useContext(TodosContext);
@@ -18,4 +18,4 @@ const DefaultComponent: React.FC<ContainerProps> = () => {
   return <div className={styles.container}>{text[language].title}</div>;
 };
 
-export default DefaultComponent;
+export default CardCustomizeCategoryFolder;

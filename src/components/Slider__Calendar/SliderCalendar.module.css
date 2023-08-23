@@ -1,0 +1,23 @@
+.container {
+}
+
+.SliderCalendar__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.SliderCalendar__content {
+}
+
+.SliderCalendar__slide {
+  padding-bottom: 24px;
+}
+
+.SliderCalendar__month {
+  margin-top: 0;
+}
+.SliderCalendar__year {
+  color: var(--ion-color-medium);
+}
