@@ -1,21 +1,26 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
-import styles from "./ItemUserTodo.module.css";
-import { text } from "./text";
-import { IonBadge, IonIcon, IonItem, IonLabel } from "@ionic/react";
+import { IonBadge, IonButton, IonIcon, IonItem, IonLabel } from "@ionic/react";
 import { typeTodo } from "../../types/typeTodo";
 import { timeOutline } from "ionicons/icons";
 
+import styles from "./ItemUserTodo.module.css";
+
+import { SelectedDateContext } from "../../utils/reducers/reducerSelectedDate";
+import { useTodosContext } from "../../context/TodosContextProvider";
+
 interface ContainerProps {
   todo: typeTodo;
+  callback: (todo: typeTodo) => void;
 }
 
-const ItemUserTodo: React.FC<ContainerProps> = ({ todo }) => {
+const ItemUserTodo: React.FC<ContainerProps> = ({ todo, callback }) => {
   // VARIABLES ---------------------
+
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const { stateSelectedDate, dispatchSelectedDate } = useContext(SelectedDateContext);
+  const { stateTodos, dispatchTodos } = useTodosContext();
   const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   const [deadlineDate, setDeadlineDate] = useState<Date>();
@@ -27,7 +32,10 @@ const ItemUserTodo: React.FC<ContainerProps> = ({ todo }) => {
       const format = new Date(todo.deadlineDate.toString());
       setDeadlineDate(format);
     }
-  }, [todo])
+  }, [todo]);
+
+
+
   // RETURN ------------------------
   return (
     <IonItem className={styles.container}>
@@ -79,6 +87,14 @@ const ItemUserTodo: React.FC<ContainerProps> = ({ todo }) => {
           }
         </div>
       </IonLabel>
+      <IonButton onClick={() => callback(todo)} slot="end">
+        {
+          todo.completed ?
+            "Completato"
+            :
+            "Completa"
+        }
+      </IonButton>
     </IonItem>
   );
 };

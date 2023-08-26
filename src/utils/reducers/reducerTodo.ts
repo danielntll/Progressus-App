@@ -1,6 +1,18 @@
 import { createContext } from "react";
-import { typeReducerTodoActions } from "../../types/typeReducerTodoActions";
+
 import { typeTodo } from "../../types/typeTodo";
+
+export type typeReducerTodoActions = {
+  type:
+    | "ADD"
+    | "DELETE"
+    | "COMPLETE"
+    | "NOT_COMPLETE"
+    | "UPDATE"
+    | "INITIALIZE_DATA";
+  refTodo?: typeTodo;
+  initialize?: typeTodo[];
+};
 
 export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
   switch (action.type) {
@@ -8,8 +20,6 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
       // LOCAL
       const auxTodos_ADD: typeTodo[] = [...state];
       auxTodos_ADD.unshift(action.refTodo!);
-      // SERVER
-      // here
       return auxTodos_ADD;
 
     case "DELETE":
@@ -17,8 +27,6 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
       const auxTodos_DELETE: typeTodo[] = [...state].filter(
         (todos: typeTodo) => todos.todoUID !== action.refTodo?.todoUID
       );
-      // SERVER
-      // here
       return auxTodos_DELETE;
     case "COMPLETE":
       // LOCAL
@@ -28,8 +36,6 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
       );
       auxTodos_COMPLETE[index].completed = true;
       auxTodos_COMPLETE[index].completedDate = new Date();
-      // SERVER
-      // here
       return auxTodos_COMPLETE;
     case "NOT_COMPLETE":
       // LOCAL
@@ -39,8 +45,6 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
       );
       auxTodos_NOT_COMPLETE[indexNot].completed = false;
       auxTodos_NOT_COMPLETE[indexNot].completedDate = null;
-      // SERVER
-      // here
       return auxTodos_NOT_COMPLETE;
 
     case "UPDATE":
@@ -50,8 +54,6 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
         (todos: typeTodo) => todos.todoUID === action.refTodo?.todoUID
       );
       auxTodos_UPDATE[indexUPDATE] = action.refTodo!;
-      // SERVER
-      // here
       return auxTodos_UPDATE;
 
     case "INITIALIZE_DATA":
@@ -62,5 +64,3 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
       return state;
   }
 };
-
-export const TodosContext = createContext<any>([]);

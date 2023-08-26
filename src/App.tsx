@@ -32,16 +32,14 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import PageHome from "./pages/PageHome/PageHome";
 import { RoutesApp } from "./routes";
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import PageTodos from "./pages/PageTodos/PageTodos";
-import { TodosContext, reducerTodo } from "./utils/reducers/reducerTodo";
+
 import { LanguageContext, reducerLanguage } from "./utils/reducers/reducerLanguage";
 import { AuthContext, useAuthInit } from "./firebase/auth";
 import PageLogin from "./pages/PageLogin/PageLogin";
 import PageRegister from "./pages/PageRegister/PageRegister";
-import { firebaseTodoActions } from "./firebase/firebaseTodoActions";
-import { typeTodo } from "./types/typeTodo";
-
+import { TodosContext, TodosContextProvider } from "./context/TodosContextProvider";
 
 setupIonicReact();
 
@@ -51,23 +49,12 @@ const App: React.FC = () => {
   // CONDITIONS --------------------
 
   const [currentTab, setCurrentTab] = useState<string>("");
-  const [stateTodos, dispatchTodos] = useReducer(reducerTodo, []);
+
   const [stateLanguage, dispatchLanguage] = useReducer(reducerLanguage, "ita");
 
-  // FUNCTIONS ---------------------
-  useEffect(() => {
-    console.log("TODOS STATE : ", stateTodos);
-  }, [stateTodos]);
 
-  useEffect(() => {
-    // INITIALIZE TASKS -----
-    if (auth) firebaseTodoActions.INITIALIZE(auth.userUID!).then((todos: typeTodo[]) => {
-      dispatchTodos({
-        type: "INITIALIZE_DATA",
-        initialize: todos,
-      })
-    });
-  }, [auth]);
+  // FUNCTIONS ---------------------
+
 
 
   // signOut(getAuth());
@@ -77,9 +64,11 @@ const App: React.FC = () => {
       <Route exact path={RoutesApp.pageHome.path}>
         <Redirect to={RoutesApp.pageLogin.path} />
       </Route>
+
       <Route exact path={RoutesApp.pageTodos.path}>
         <Redirect to={RoutesApp.pageLogin.path} />
       </Route>
+
       <Route exact path="/">
         <Redirect to={RoutesApp.pageLogin.path} />
       </Route>
@@ -111,9 +100,11 @@ const App: React.FC = () => {
       <Route exact path={RoutesApp.pageHome.path}>
         <PageHome />
       </Route>
+
       <Route exact path={RoutesApp.pageTodos.path}>
         <PageTodos />
       </Route>
+
     </>
   )
 
@@ -127,7 +118,8 @@ const App: React.FC = () => {
       <IonReactRouter>
         <AuthContext.Provider value={auth!}>
           <LanguageContext.Provider value={{ stateLanguage, dispatchLanguage }}>
-            <TodosContext.Provider value={{ stateTodos, dispatchTodos }}>
+            <TodosContextProvider>
+
               {auth?.loggedIn ?
                 <IonTabs>
                   <IonRouterOutlet>
@@ -175,7 +167,7 @@ const App: React.FC = () => {
                   {authRoutes}
                 </IonRouterOutlet>
               }
-            </TodosContext.Provider>
+            </TodosContextProvider>
           </LanguageContext.Provider>
         </AuthContext.Provider>
       </IonReactRouter>

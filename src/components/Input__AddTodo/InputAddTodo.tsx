@@ -8,11 +8,11 @@ import { useCallback, useContext, useState } from "react";
 import ModalTodoOptions from "../Modal__TodoOptions/ModalTodoOptions";
 import { defaultTodo, typeTodo } from "../../types/typeTodo";
 import { montsStrict } from "../../text/textDays&Months";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
+
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { firebaseTodoActions } from "../../firebase/firebaseTodoActions";
-import { getAuth } from "firebase/auth";
-import { AuthContext, useAuthContext } from "../../firebase/auth";
+import { useAuthContext } from "../../firebase/auth";
+import { useTodosContext } from "../../context/TodosContextProvider";
 
 interface ContainerProps {
   selectedDate: Date
@@ -26,7 +26,7 @@ const InputAddTodo: React.FC<ContainerProps> = ({
   // VARIABLES ---------------------
   const { userUID } = useAuthContext();
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
+  const { stateTodos, dispatchTodos } = useTodosContext();
   const language: typeAviableLanguages = stateLanguage;
 
   const [presentToast] = useIonToast();
@@ -60,7 +60,7 @@ const InputAddTodo: React.FC<ContainerProps> = ({
           refTodo: todoToUpload
         });
         //SERVER
-        firebaseTodoActions.CREATE(todoToUpload, userUID!)
+        firebaseTodoActions.CREATE(todoToUpload, userUID!, selectedDate, todoToUpload.categoryType.name)
           .catch(() => {
             toast.danger();
           }).then(() => {

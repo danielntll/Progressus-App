@@ -8,7 +8,6 @@ import { typeCardSingleDay } from "../../types/typeCardSingleDay";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { constColors } from "../../constants/colors";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { useContext } from "react";
 
 interface ContainerProps {
@@ -26,7 +25,6 @@ const CardSingleDay: React.FC<ContainerProps> = ({
 }) => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------

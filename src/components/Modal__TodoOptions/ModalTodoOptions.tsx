@@ -7,7 +7,6 @@ import { add, alertCircleOutline, closeCircle, removeCircleOutline } from "ionic
 import { montsStrict } from "../../text/textDays&Months";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { useContext } from "react";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
 
 interface ContainerProps {
   isModalOptionsOpen: boolean,
@@ -28,7 +27,6 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
 }) => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------

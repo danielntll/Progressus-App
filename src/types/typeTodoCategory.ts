@@ -11,3 +11,5 @@ export type typeTodoCategory = {
   icon: string;
   color: string;
 };
+
+export type typeTodoCategoryNames = "Daily" | "Goal" | "Folder";

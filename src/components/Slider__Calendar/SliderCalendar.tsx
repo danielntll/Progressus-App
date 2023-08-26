@@ -16,7 +16,7 @@ import CardSingleDay from "../Card__SingleDay/CardSingleDay";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { days, months } from "../../text/textDays&Months";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
+
 
 
 
@@ -33,7 +33,7 @@ const SliderCalendar: React.FC<ContainerProps> = ({
 }) => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
+
   const language: typeAviableLanguages = stateLanguage;
   const today = new Date();
 

@@ -6,16 +6,14 @@ import { constGoalTypes } from "../../constants/constGoalTypes";
 import { typeGoalType } from "../../types/typeGoalTypes";
 import { checkmark, lockClosed, lockOpen, skullOutline, warningOutline } from "ionicons/icons";
 import { days } from "../../text/textDays&Months";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
 
 interface ContainerProps { }
 
 const CardCustomizeCategoryGoal: React.FC<ContainerProps> = () => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
 
   const userLvl: number = 1;

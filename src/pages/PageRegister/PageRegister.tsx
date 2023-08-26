@@ -15,15 +15,12 @@ import { RoutesApp } from "../../routes";
 
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { useContext, useState } from "react";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-import { Redirect, useHistory } from "react-router";
 
 
 import styles from "./PageRegister.module.css";
 import { text } from "./text";
-import { language } from "ionicons/icons";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { typeUser } from "../../types/typeUser";
 import { firebaseUserActions } from "../../firebase/firebaseUserActions";

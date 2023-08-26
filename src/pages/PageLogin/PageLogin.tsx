@@ -16,10 +16,8 @@ import { RoutesApp } from "../../routes";
 
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { useContext, useState } from "react";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { auth } from "../../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useHistory } from "react-router";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 
@@ -30,7 +28,6 @@ import { text } from "./text";
 const PageLogin: React.FC = () => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
 
   // CONDITIONS --------------------
