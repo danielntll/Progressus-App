@@ -1,4 +1,6 @@
+import { calendarOutline } from "ionicons/icons";
 import { typeTodoCategory } from "./typeTodoCategory";
+import { constColors } from "../constants/colors";
 
 export type typeTodo = {
   todoUID: string;
@@ -24,6 +26,10 @@ export const defaultTodo: typeTodo = {
   completedDate: null,
   completed: false,
   attachments: null,
-  categoryType: "Daily",
+  categoryType: {
+    name: "Daily",
+    icon: calendarOutline,
+    color: constColors.primary,
+  },
   relatedCategoryUID: "",
 };

@@ -33,10 +33,8 @@ import { firebaseUserActions } from "../../firebase/firebaseUserActions";
 const PageRegister: React.FC = () => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
 
-  const history = useHistory();
   // CONDITIONS --------------------
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');

@@ -10,9 +10,11 @@ import styles from "./PageTodos.module.css";
 import { RoutesApp } from "../../routes";
 import SliderCalendar from "../../components/Slider__Calendar/SliderCalendar";
 import InputAddTodo from "../../components/Input__AddTodo/InputAddTodo";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { typeTodo } from "../../types/typeTodo";
+import ItemUserTodo from "../../components/Item__UserTodo/ItemUserTodo";
 
 
 const PageTodos: React.FC = () => {
@@ -46,6 +48,12 @@ const PageTodos: React.FC = () => {
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
+          {/* ---------- */}
+          {stateTodos?.map((todo: typeTodo, index: number) => {
+            return (
+              <ItemUserTodo todo={todo} key={index} />
+            )
+          })}
         </div>
         {/* END CONTENT ----------------------- */}
       </IonContent>

@@ -7,7 +7,7 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
     case "ADD":
       // LOCAL
       const auxTodos_ADD: typeTodo[] = [...state];
-      auxTodos_ADD.push(action.refTodo);
+      auxTodos_ADD.unshift(action.refTodo!);
       // SERVER
       // here
       return auxTodos_ADD;
@@ -15,7 +15,7 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
     case "DELETE":
       // LOCAL
       const auxTodos_DELETE: typeTodo[] = [...state].filter(
-        (todos: typeTodo) => todos.todoUID !== action.refTodo.todoUID
+        (todos: typeTodo) => todos.todoUID !== action.refTodo?.todoUID
       );
       // SERVER
       // here
@@ -24,7 +24,7 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
       // LOCAL
       const auxTodos_COMPLETE: typeTodo[] = [...state];
       const index = auxTodos_COMPLETE.findIndex(
-        (todos: typeTodo) => todos.todoUID === action.refTodo.todoUID
+        (todos: typeTodo) => todos.todoUID === action.refTodo?.todoUID
       );
       auxTodos_COMPLETE[index].completed = true;
       auxTodos_COMPLETE[index].completedDate = new Date();
@@ -35,7 +35,7 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
       // LOCAL
       const auxTodos_NOT_COMPLETE: typeTodo[] = [...state];
       const indexNot = auxTodos_NOT_COMPLETE.findIndex(
-        (todos: typeTodo) => todos.todoUID === action.refTodo.todoUID
+        (todos: typeTodo) => todos.todoUID === action.refTodo?.todoUID
       );
       auxTodos_NOT_COMPLETE[indexNot].completed = false;
       auxTodos_NOT_COMPLETE[indexNot].completedDate = null;
@@ -47,12 +47,15 @@ export const reducerTodo = (state: any, action: typeReducerTodoActions) => {
       // LOCAL
       const auxTodos_UPDATE: typeTodo[] = [...state];
       const indexUPDATE = auxTodos_UPDATE.findIndex(
-        (todos: typeTodo) => todos.todoUID === action.refTodo.todoUID
+        (todos: typeTodo) => todos.todoUID === action.refTodo?.todoUID
       );
       auxTodos_UPDATE[indexUPDATE] = action.refTodo!;
       // SERVER
       // here
       return auxTodos_UPDATE;
+
+    case "INITIALIZE_DATA":
+      return action.initialize!;
 
     default:
       console.log(state);

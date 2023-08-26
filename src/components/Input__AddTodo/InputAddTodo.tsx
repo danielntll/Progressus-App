@@ -3,13 +3,16 @@ import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import styles from "./InputAddTodo.module.css";
 import { text } from "./text";
 import { add, checkmark, close, cogOutline, skullOutline, warningOutline } from "ionicons/icons";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 
 import ModalTodoOptions from "../Modal__TodoOptions/ModalTodoOptions";
 import { defaultTodo, typeTodo } from "../../types/typeTodo";
 import { montsStrict } from "../../text/textDays&Months";
 import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { firebaseTodoActions } from "../../firebase/firebaseTodoActions";
+import { getAuth } from "firebase/auth";
+import { AuthContext, useAuthContext } from "../../firebase/auth";
 
 interface ContainerProps {
   selectedDate: Date
@@ -21,11 +24,11 @@ const InputAddTodo: React.FC<ContainerProps> = ({
   setSelectedDate,
 }) => {
   // VARIABLES ---------------------
+  const { userUID } = useAuthContext();
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
 
-  const { uid } = { uid: "Authuser" };
   const [presentToast] = useIonToast();
 
   // CONDITIONS --------------------
@@ -41,7 +44,7 @@ const InputAddTodo: React.FC<ContainerProps> = ({
 
 
 
-  const handleCreateTodo = () => {
+  const handleCreateTodo = useCallback(() => {
     if (!todo.title) {
       toast.warning();
     } else {
@@ -49,21 +52,27 @@ const InputAddTodo: React.FC<ContainerProps> = ({
         //CONFIG NEW ---------------
         const todoToUpload = todo;
         todoToUpload.createdAt = Date.now();
-        todoToUpload.userUID = uid;
+        todoToUpload.userUID = userUID!;
 
-        console.log(todoToUpload);
+        // LOCAL   
         dispatchTodos({
           type: "ADD",
           refTodo: todoToUpload
-        })
-        //RESET & FEEDBACK ---------
-        setTodo(defaultTodo);
-        toast.success();
+        });
+        //SERVER
+        firebaseTodoActions.CREATE(todoToUpload, userUID!)
+          .catch(() => {
+            toast.danger();
+          }).then(() => {
+            //RESET & FEEDBACK ---------
+            setTodo(defaultTodo);
+            toast.success();
+          })
       } catch (error) {
         toast.danger();
       }
     }
-  }
+  }, [todo]);
 
 
 

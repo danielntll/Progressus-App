@@ -39,14 +39,16 @@ import { LanguageContext, reducerLanguage } from "./utils/reducers/reducerLangua
 import { AuthContext, useAuthInit } from "./firebase/auth";
 import PageLogin from "./pages/PageLogin/PageLogin";
 import PageRegister from "./pages/PageRegister/PageRegister";
-import { getAuth, signOut } from "firebase/auth";
+import { firebaseTodoActions } from "./firebase/firebaseTodoActions";
+import { typeTodo } from "./types/typeTodo";
+
 
 setupIonicReact();
 
 const App: React.FC = () => {
   // VARIABLES ---------------------
-  // CONDITIONS --------------------
   const { auth, loading } = useAuthInit();
+  // CONDITIONS --------------------
 
   const [currentTab, setCurrentTab] = useState<string>("");
   const [stateTodos, dispatchTodos] = useReducer(reducerTodo, []);
@@ -56,6 +58,16 @@ const App: React.FC = () => {
   useEffect(() => {
     console.log("TODOS STATE : ", stateTodos);
   }, [stateTodos]);
+
+  useEffect(() => {
+    // INITIALIZE TASKS -----
+    if (auth) firebaseTodoActions.INITIALIZE(auth.userUID!).then((todos: typeTodo[]) => {
+      dispatchTodos({
+        type: "INITIALIZE_DATA",
+        initialize: todos,
+      })
+    });
+  }, [auth]);
 
 
   // signOut(getAuth());
