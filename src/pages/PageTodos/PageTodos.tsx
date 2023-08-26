@@ -10,18 +10,19 @@ import styles from "./PageTodos.module.css";
 import { RoutesApp } from "../../routes";
 import SliderCalendar from "../../components/Slider__Calendar/SliderCalendar";
 import InputAddTodo from "../../components/Input__AddTodo/InputAddTodo";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
-import { typeTodo } from "../../types/typeTodo";
-import ItemUserTodo from "../../components/Item__UserTodo/ItemUserTodo";
 import ListUserTodos from "../../components/List__UserTodos/ListUserTodos";
+import { text } from "./text";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 
 const PageTodos: React.FC = () => {
   // VARIABLES ---------------------
   const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
+  const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   // FUNCTIONS ---------------------
@@ -50,7 +51,10 @@ const PageTodos: React.FC = () => {
             setSelectedDate={setSelectedDate}
           />
           {/* ---------- */}
-          <ListUserTodos todos={stateTodos} />
+          <ListUserTodos
+            todos={stateTodos}
+            title={text[language].sectionTitle}
+          />
         </div>
         {/* END CONTENT ----------------------- */}
       </IonContent>

@@ -1,8 +1,8 @@
 export const text = {
   ita: {
-    sectionTitle: "Todo",
+    sectionTitle: "I tuoi todos",
   },
   eng: {
-    sectionTitle: "Todo",
+    sectionTitle: "Your todos",
   },
 };

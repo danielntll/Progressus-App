@@ -4,15 +4,16 @@ import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { TodosContext } from "../../utils/reducers/reducerTodo";
 import styles from "./ListUserTodos.module.css";
 import { text } from "./text";
-import { IonList } from "@ionic/react";
+import { IonLabel, IonList, IonListHeader } from "@ionic/react";
 import { typeTodo } from "../../types/typeTodo";
 import ItemUserTodo from "../Item__UserTodo/ItemUserTodo";
 
 interface ContainerProps {
-  todos: typeTodo[]
+  todos: typeTodo[],
+  title: string,
 }
 
-const ListUserTodos: React.FC<ContainerProps> = ({ todos }) => {
+const ListUserTodos: React.FC<ContainerProps> = ({ todos, title }) => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   const { stateTodos, dispatchTodos } = useContext(TodosContext);
@@ -22,6 +23,9 @@ const ListUserTodos: React.FC<ContainerProps> = ({ todos }) => {
   // RETURN ------------------------
   return (
     <IonList className={styles.container} inset>
+      <IonListHeader>
+        <IonLabel>{title}</IonLabel>
+      </IonListHeader>
       {todos?.map((todo: typeTodo) => {
         return (
           <ItemUserTodo todo={todo} key={todo.todoUID} />
