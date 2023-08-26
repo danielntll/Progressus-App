@@ -15,6 +15,7 @@ import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { typeTodo } from "../../types/typeTodo";
 import ItemUserTodo from "../../components/Item__UserTodo/ItemUserTodo";
+import ListUserTodos from "../../components/List__UserTodos/ListUserTodos";
 
 
 const PageTodos: React.FC = () => {
@@ -49,11 +50,7 @@ const PageTodos: React.FC = () => {
             setSelectedDate={setSelectedDate}
           />
           {/* ---------- */}
-          {stateTodos?.map((todo: typeTodo, index: number) => {
-            return (
-              <ItemUserTodo todo={todo} key={index} />
-            )
-          })}
+          <ListUserTodos todos={stateTodos} />
         </div>
         {/* END CONTENT ----------------------- */}
       </IonContent>
