@@ -19,13 +19,14 @@ import { typeTodo } from "../../types/typeTodo";
 import { firebaseTodoActions } from "../../firebase/firebaseTodoActions";
 import { useAuthContext } from "../../firebase/auth";
 import { useTodosContext } from "../../context/TodosContextProvider";
+import ListTodosStatistics from "../../components/List__TodosStatistics/ListTodosStatistics";
 
 
 
 const PageTodos: React.FC = () => {
   // VARIABLES ---------------------
   const { userUID } = useAuthContext();
-  const { dailyTodos, setAuxSelectedDay, auxSelectedDay } = useTodosContext();
+  const { dailyTodos, setAuxSelectedDay, auxSelectedDay, dailyCompleted } = useTodosContext();
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
@@ -76,6 +77,12 @@ const PageTodos: React.FC = () => {
             callback={(todo: typeTodo) => handleCompleteTodo(todo)}
             todos={dailyTodos}
             title={text[language].sectionTitle}
+          />
+
+          {/* -------------- */}
+
+          <ListTodosStatistics
+            dailyCompleted={dailyCompleted.completedUIDs}
           />
         </div>
         {/* END CONTENT ----------------------- */}
