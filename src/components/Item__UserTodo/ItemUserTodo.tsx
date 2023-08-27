@@ -1,14 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { typeAviableLanguages } from "../../types/typeAviableLanguages";
-import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { useEffect, useState } from "react";
 import { IonBadge, IonButton, IonIcon, IonItem, IonLabel } from "@ionic/react";
 import { typeTodo } from "../../types/typeTodo";
 import { timeOutline } from "ionicons/icons";
 
 import styles from "./ItemUserTodo.module.css";
 
-import { SelectedDateContext } from "../../utils/reducers/reducerSelectedDate";
-import { useTodosContext } from "../../context/TodosContextProvider";
 
 interface ContainerProps {
   todo: typeTodo;
@@ -17,11 +13,6 @@ interface ContainerProps {
 
 const ItemUserTodo: React.FC<ContainerProps> = ({ todo, callback }) => {
   // VARIABLES ---------------------
-
-  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateSelectedDate, dispatchSelectedDate } = useContext(SelectedDateContext);
-  const { stateTodos, dispatchTodos } = useTodosContext();
-  const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   const [deadlineDate, setDeadlineDate] = useState<Date>();
   // FUNCTIONS ---------------------

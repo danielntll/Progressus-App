@@ -12,21 +12,17 @@ import { montsStrict } from "../../text/textDays&Months";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { firebaseTodoActions } from "../../firebase/firebaseTodoActions";
 import { useAuthContext } from "../../firebase/auth";
-import { useTodosContext } from "../../context/TodosContextProvider";
 
 interface ContainerProps {
   selectedDate: Date
-  setSelectedDate: (newDate: Date) => void;
 }
 
 const InputAddTodo: React.FC<ContainerProps> = ({
   selectedDate,
-  setSelectedDate,
 }) => {
   // VARIABLES ---------------------
   const { userUID } = useAuthContext();
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useTodosContext();
   const language: typeAviableLanguages = stateLanguage;
 
   const [presentToast] = useIonToast();
@@ -54,11 +50,6 @@ const InputAddTodo: React.FC<ContainerProps> = ({
         todoToUpload.createdAt = Date.now();
         todoToUpload.userUID = userUID!;
 
-        // LOCAL   
-        dispatchTodos({
-          type: "ADD",
-          refTodo: todoToUpload
-        });
         //SERVER
         firebaseTodoActions.CREATE(todoToUpload, userUID!, selectedDate, todoToUpload.categoryType.name)
           .catch(() => {

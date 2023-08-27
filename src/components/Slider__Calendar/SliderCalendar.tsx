@@ -19,11 +19,8 @@ import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 
 
 
-
-
-
 interface ContainerProps {
-  selectedDate: Date,
+  selectedDate: Date | undefined,
   setSelectedDate: (newDate: Date) => void;
 }
 
@@ -33,20 +30,19 @@ const SliderCalendar: React.FC<ContainerProps> = ({
 }) => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-
   const language: typeAviableLanguages = stateLanguage;
-  const today = new Date();
 
   // CONDITIONS --------------------
+  const [today, setToday] = useState(new Date())
   const [calendarSwiper, setCalendarSwiper] = useState<any>();
   const [isModalCalendarOpen, setIsModalCalendarOpen] =
     useState<boolean>(false);
 
-  const [selectedYear, setSelectedYear] = useState<number>(selectedDate.getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState<number>(selectedDate.getMonth());
-  const [selectedDay, setSelectedDay] = useState<number>(selectedDate.getDate());
+  const [selectedYear, setSelectedYear] = useState<number>(today.getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
+  const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
   const [selectedWeekDay, setSelectedWeekDay] = useState<number>(
-    selectedDate.getDay()
+    today.getDay()
   );
 
   const [monthData, setMonthData] = useState<typeCardSingleDay[]>();

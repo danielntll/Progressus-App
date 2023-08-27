@@ -39,7 +39,7 @@ import { LanguageContext, reducerLanguage } from "./utils/reducers/reducerLangua
 import { AuthContext, useAuthInit } from "./firebase/auth";
 import PageLogin from "./pages/PageLogin/PageLogin";
 import PageRegister from "./pages/PageRegister/PageRegister";
-import { TodosContext, TodosContextProvider } from "./context/TodosContextProvider";
+import { TodosContextProvider } from "./context/TodosContextProvider";
 
 setupIonicReact();
 
@@ -47,9 +47,7 @@ const App: React.FC = () => {
   // VARIABLES ---------------------
   const { auth, loading } = useAuthInit();
   // CONDITIONS --------------------
-
   const [currentTab, setCurrentTab] = useState<string>("");
-
   const [stateLanguage, dispatchLanguage] = useReducer(reducerLanguage, "ita");
 
 

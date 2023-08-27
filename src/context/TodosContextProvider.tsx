@@ -1,19 +1,38 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { LanguageContext } from "../utils/reducers/reducerLanguage";
 import { typeAviableLanguages } from "../types/typeAviableLanguages";
 import { useAuthContext } from "../firebase/auth";
-import { reducerTodo } from "../utils/reducers/reducerTodo";
 import { typeTodo } from "../types/typeTodo";
-import { firebaseTodoActions } from "../firebase/firebaseTodoActions";
+import { firebaseTodosRealtime } from "../firebase/firebaseTodoActions";
+import { Unsubscribe } from "firebase/auth";
 
 
-export const TodosContext = createContext<any>({
-  stateTodos: [],
-  dispatchTodos: () => { },
+export type typeSubToDailyCompleted = {
+  completedUIDs: string[],
+  unsub: Unsubscribe,
+}
+
+
+type typeTodosContext = {
+  dailyTodos: typeTodo[],
+  dailyCompleted: typeSubToDailyCompleted;
+  auxSelectedDay: Date;
+  setAuxSelectedDay: (day: Date) => void;
+
+}
+
+export const TodosContext = createContext<typeTodosContext>({
+  dailyTodos: [],
+  dailyCompleted: {
+    completedUIDs: [],
+    unsub: () => { },
+  },
+  auxSelectedDay: new Date(),
+  setAuxSelectedDay: () => { },
 });
 
 
-export const useTodosContext = useContext(TodosContext);
+export const useTodosContext = () => useContext<typeTodosContext>(TodosContext);
 
 
 export const TodosContextProvider = ({ children }: any) => {
@@ -22,23 +41,40 @@ export const TodosContextProvider = ({ children }: any) => {
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
-  const [stateTodos, dispatchTodos] = useReducer(reducerTodo, []);
+  const [dailyTodos, setDailyTodos] = useState<typeTodo[]>([]);
+  const [dailyCompletedTodos, setDailyCompletedTodos] = useState<typeSubToDailyCompleted>({
+    completedUIDs: [],
+    unsub: () => { }
+  });
+  const [auxSelectedDay, setAuxSelectedDay] = useState<Date>(new Date());
+
   // FUNCTIONS ---------------------
   useEffect(() => {
     // INITIALIZE TASKS -----
-    if (userUID) firebaseTodoActions.INITIALIZE(userUID!).then((todos: typeTodo[]) => {
-      dispatchTodos({
-        type: "INITIALIZE_DATA",
-        initialize: todos,
-      })
-    });
+    if (userUID) {
+      firebaseTodosRealtime.DAILY(userUID, setDailyTodos);
+    }
   }, [userUID]);
+
+  useEffect(() => {
+    if (userUID && auxSelectedDay) {
+      dailyCompletedTodos.unsub();
+      firebaseTodosRealtime.CALENDAR.DAILY_COMPLETED(userUID, auxSelectedDay!, setDailyCompletedTodos)
+    }
+  }, [auxSelectedDay])
+
+  useEffect(() => {
+    console.log("dailyCompletedTodos: ", dailyCompletedTodos)
+  }, [dailyCompletedTodos])
+
   // RETURN ------------------------
   return (
     <TodosContext.Provider value={
       {
-        stateTodos,
-        dispatchTodos
+        dailyTodos,
+        auxSelectedDay,
+        setAuxSelectedDay,
+        dailyCompleted: dailyCompletedTodos,
       }
     }>
 
