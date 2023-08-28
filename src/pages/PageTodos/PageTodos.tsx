@@ -85,7 +85,7 @@ const PageTodos: React.FC = () => {
   const handleUpdateTodoDeleted = () => {
     console.log("handleUpdateTodoDeleted");
     try {
-      firebaseTodoActions.DELETE_TODO(userUID!, todoToModify!).then(() => {
+      firebaseTodoActions.DELETE_TODO(userUID!, todoToModify!, selectedDate).then(() => {
         console.log("Eliminato con successo");
         setIsAlertDeleteOpen(false);
       }).catch((e) => {

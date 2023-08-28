@@ -6,7 +6,8 @@ export const text = {
     toastWarning: "Completare tutti i campi!",
     toastDanger: "Ops! Qualcosa è andato storto.",
     alertTitle: "Attenzione!",
-    alertMessage: "L'eliminazione è definitiva.",
+    alertMessage:
+      "L'eliminazione è definitiva e sarà rimosso dalle statistiche di completamento.",
     alertCancel: "Annulla",
     alertConfirm: "Elimina",
   },
