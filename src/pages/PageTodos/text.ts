@@ -5,6 +5,10 @@ export const text = {
     closeToast: "Chiudi",
     toastWarning: "Completare tutti i campi!",
     toastDanger: "Ops! Qualcosa è andato storto.",
+    alertTitle: "Attenzione!",
+    alertMessage: "L'eliminazione è definitiva.",
+    alertCancel: "Annulla",
+    alertConfirm: "Elimina",
   },
   eng: {
     sectionTitle: "Your todos",
@@ -12,5 +16,9 @@ export const text = {
     closeToast: "Chiudi",
     toastWarning: "Completare tutti i campi!",
     toastDanger: "Ops! Qualcosa è andato storto.",
+    alertTitle: "Attenzione!",
+    alertMessage: "L'eliminazione è definitiva.",
+    alertCancel: "Annulla",
+    alertConfirm: "Elimina",
   },
 };

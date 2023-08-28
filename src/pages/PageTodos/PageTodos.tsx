@@ -1,4 +1,5 @@
 import {
+  IonAlert,
   IonContent,
   IonHeader,
   IonPage,
@@ -14,7 +15,6 @@ import InputAddTodo from "../../components/Input__AddTodo/InputAddTodo";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import ListUserTodos from "../../components/List__UserTodos/ListUserTodos";
-import { text } from "./text";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { typeTodo } from "../../types/typeTodo";
 import { firebaseTodoActions } from "../../firebase/firebaseTodoActions";
@@ -24,6 +24,7 @@ import ListTodosStatistics from "../../components/List__TodosStatistics/ListTodo
 import ModalTodoOptions from "../../components/Modal__TodoOptions/ModalTodoOptions";
 import { checkmark, close, skullOutline, warningOutline } from "ionicons/icons";
 
+import { text } from "./text";
 
 
 const PageTodos: React.FC = () => {
@@ -77,12 +78,23 @@ const PageTodos: React.FC = () => {
   }
 
   const handleDeleteTodo = useCallback((todo: typeTodo) => {
+    setTodoToModify(todo);
+    setIsAlertDeleteOpen(true);
+  }, [selectedDate]);
+
+  const handleUpdateTodoDeleted = () => {
+    console.log("handleUpdateTodoDeleted");
     try {
-      console.log("handleDeleteTodo : ", selectedDate);
+      firebaseTodoActions.DELETE_TODO(userUID!, todoToModify!).then(() => {
+        console.log("Eliminato con successo");
+        setIsAlertDeleteOpen(false);
+      }).catch((e) => {
+        toast.danger();
+      });
     } catch (error) {
 
     }
-  }, [selectedDate]);
+  }
 
 
   const toast = {
@@ -180,7 +192,27 @@ const PageTodos: React.FC = () => {
             callback={() => handleUpdateTodoModified()}
             selectedDate={selectedDate}
           />
-          : null}
+          : null
+        }
+        <IonAlert
+          header={text[language].alertTitle}
+          message={text[language].alertMessage}
+          isOpen={isAlertDeleteOpen}
+          onDidDismiss={() => setIsAlertDeleteOpen(false)}
+          buttons={[
+            {
+              text: text[language].alertCancel,
+              role: 'cancel',
+            },
+            {
+              text: text[language].alertConfirm,
+              role: 'confirm',
+              handler: () => {
+                handleUpdateTodoDeleted();
+              },
+            },
+          ]}
+        ></IonAlert>
       </IonContent>
     </IonPage>
   );
