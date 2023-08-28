@@ -4,6 +4,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonToast,
 } from "@ionic/react";
 
 import styles from "./PageTodos.module.css";
@@ -20,6 +21,8 @@ import { firebaseTodoActions } from "../../firebase/firebaseTodoActions";
 import { useAuthContext } from "../../firebase/auth";
 import { useTodosContext } from "../../context/TodosContextProvider";
 import ListTodosStatistics from "../../components/List__TodosStatistics/ListTodosStatistics";
+import ModalTodoOptions from "../../components/Modal__TodoOptions/ModalTodoOptions";
+import { checkmark, close, skullOutline, warningOutline } from "ionicons/icons";
 
 
 
@@ -29,8 +32,14 @@ const PageTodos: React.FC = () => {
   const { dailyTodos, setAuxSelectedDay, auxSelectedDay, dailyCompleted } = useTodosContext();
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   const language: typeAviableLanguages = stateLanguage;
+
+
+  const [presentToast] = useIonToast();
   // CONDITIONS --------------------
   const [selectedDate, setSelectedDate] = useState<Date>(auxSelectedDay);
+  const [isModalModifyTodoOpen, setIsModalModifyTodoOpen] = useState<boolean>(false);
+  const [isAlertDeleteOpen, setIsAlertDeleteOpen] = useState<boolean>(false);
+  const [todoToModify, setTodoToModify] = useState<typeTodo>();
 
   // FUNCTIONS ---------------------
   useEffect(() => {
@@ -45,8 +54,81 @@ const PageTodos: React.FC = () => {
     } catch (error) {
 
     }
-  }, [selectedDate])
+  }, [selectedDate]);
 
+  const handleModifyTodo = useCallback((todo: typeTodo) => {
+    setTodoToModify(todo);
+    setIsModalModifyTodoOpen(true);
+  }, [selectedDate]);
+
+  const handleUpdateTodoModified = () => {
+    console.log("handleUpdateTodoModified");
+    try {
+      firebaseTodoActions.UPDATE_TODO(userUID!, todoToModify!).then(() => {
+        console.log("Modificato con successo");
+        toast.success();
+        setIsModalModifyTodoOpen(false);
+      }).catch((e) => {
+        toast.danger();
+      });
+    } catch (error) {
+
+    }
+  }
+
+  const handleDeleteTodo = useCallback((todo: typeTodo) => {
+    try {
+      console.log("handleDeleteTodo : ", selectedDate);
+    } catch (error) {
+
+    }
+  }, [selectedDate]);
+
+
+  const toast = {
+    success: () => {
+      presentToast({
+        message: text[language].toastSuccess,
+        duration: 2000,
+        color: "success",
+        position: "top",
+        icon: checkmark,
+        buttons: [
+          {
+            text: text[language].closeToast
+          }
+        ]
+      });
+    },
+    warning: () => {
+      presentToast({
+        message: text[language].toastWarning,
+        duration: 2000,
+        color: "warning",
+        position: "top",
+        icon: warningOutline,
+        buttons: [
+          {
+            icon: close,
+          }
+        ]
+      });
+    },
+    danger: () => {
+      presentToast({
+        message: text[language].toastDanger,
+        duration: 2000,
+        color: "danger",
+        position: "top",
+        icon: skullOutline,
+        buttons: [
+          {
+            icon: close,
+          }
+        ]
+      });
+    }
+  }
 
   // RETURN ------------------------
   return (
@@ -74,7 +156,9 @@ const PageTodos: React.FC = () => {
           />
           {/* ---------- */}
           <ListUserTodos
-            callback={(todo: typeTodo) => handleCompleteTodo(todo)}
+            callbackComplete={(todo: typeTodo) => handleCompleteTodo(todo)}
+            callbackModify={(todo: typeTodo) => handleModifyTodo(todo)}
+            callbackDelete={(todo: typeTodo) => handleDeleteTodo(todo)}
             todos={dailyTodos}
             title={text[language].sectionTitle}
           />
@@ -86,7 +170,17 @@ const PageTodos: React.FC = () => {
           />
         </div>
         {/* END CONTENT ----------------------- */}
-
+        {/* EXTRA ----------------------------- */}
+        {todoToModify ?
+          <ModalTodoOptions
+            isModalOptionsOpen={isModalModifyTodoOpen}
+            setIsModalOptionsOpen={setIsModalModifyTodoOpen}
+            todo={todoToModify}
+            setTodo={setTodoToModify}
+            callback={() => handleUpdateTodoModified()}
+            selectedDate={selectedDate}
+          />
+          : null}
       </IonContent>
     </IonPage>
   );

@@ -14,14 +14,12 @@ interface ContainerProps {
   data: typeCardSingleDay;
   callback: () => void;
   isActive: boolean;
-  isToday: boolean;
 }
 
 const CardSingleDay: React.FC<ContainerProps> = ({
   data,
   callback,
   isActive,
-  isToday,
 }) => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
@@ -54,11 +52,6 @@ const CardSingleDay: React.FC<ContainerProps> = ({
             backgroundColor: "#3e98c7",
           })}
         />
-      </div>
-      <div className={styles.CardSingleDay__IonBadge}>
-        {isToday ? (
-          <IonBadge color="primary">{text[language].isToday}</IonBadge>
-        ) : null}
       </div>
     </div>
   );

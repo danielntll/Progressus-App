@@ -159,7 +159,7 @@ const InputAddTodo: React.FC<ContainerProps> = ({
         setIsModalOptionsOpen={setIsModalOptionsOpen}
         todo={todo}
         setTodo={setTodo}
-        handleCreateTodo={handleCreateTodo}
+        callback={handleCreateTodo}
         selectedDate={selectedDate}
       />
 

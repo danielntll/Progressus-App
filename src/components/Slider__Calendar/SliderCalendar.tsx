@@ -147,7 +147,6 @@ const SliderCalendar: React.FC<ContainerProps> = ({
                   <CardSingleDay
                     data={data}
                     isActive={selectedDay === data.dayNumber ? true : false}
-                    isToday={selectedDate === today ? true : false}
                     callback={() => handleChangeDay(data.dayNumber)}
                   />
                 </SwiperSlide>

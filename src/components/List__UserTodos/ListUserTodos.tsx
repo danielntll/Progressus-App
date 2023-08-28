@@ -7,10 +7,20 @@ import styles from "./ListUserTodos.module.css";
 interface ContainerProps {
   todos: typeTodo[],
   title: string,
-  callback: (todo: typeTodo) => void;
+  callbackComplete: (todo: typeTodo) => void;
+  callbackModify: (todo: typeTodo) => void;
+  callbackDelete: (todo: typeTodo) => void;
 }
 
-const ListUserTodos: React.FC<ContainerProps> = ({ todos, title, callback }) => {
+const ListUserTodos: React.FC<ContainerProps> = (
+  {
+    todos,
+    title,
+    callbackComplete,
+    callbackModify,
+    callbackDelete
+  }) => {
+
   // VARIABLES ---------------------
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
@@ -22,7 +32,13 @@ const ListUserTodos: React.FC<ContainerProps> = ({ todos, title, callback }) => 
       </IonListHeader>
       {todos?.map((todo: typeTodo) => {
         if (!todo.completed) return (
-          <ItemUserTodo callback={callback} todo={todo} key={todo.todoUID} />
+          <ItemUserTodo
+            callbackComplete={callbackComplete}
+            callbackModify={callbackModify}
+            callbackDelete={callbackDelete}
+            todo={todo}
+            key={todo.todoUID}
+          />
         )
       })}
     </IonList>

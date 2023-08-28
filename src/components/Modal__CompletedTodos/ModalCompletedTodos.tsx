@@ -31,11 +31,13 @@ const ModalCompletedTodos: React.FC<ContainerProps> = (
   // FUNCTIONS ---------------------
   useEffect(() => {
     if (isOpen) {
+
       handleGetData()
     }
   }, [isOpen]);
 
   const handleGetData = async () => {
+    console.log("handleGetData")
     const auxCompletedTodos: any[] = [];
     const promiseCompleted = dailyCompleted.map(async (UID: string) => {
       auxCompletedTodos.push(await firebaseTodoActions.READ(userUID!, UID));
@@ -48,10 +50,6 @@ const ModalCompletedTodos: React.FC<ContainerProps> = (
   const handleCallback = () => {
     console.log("handleCallback")
   }
-
-  useEffect(() => {
-    console.log(completedTodos);
-  }, [completedTodos])
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -74,7 +72,7 @@ const ModalCompletedTodos: React.FC<ContainerProps> = (
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        {completedTodos.map((todo: typeTodo, index: number) => {
+        {completedTodos?.map((todo: typeTodo, index: number) => {
           return (
             <ItemUserTodo
               callback={handleCallback}

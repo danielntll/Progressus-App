@@ -1,2 +1,19 @@
 .container {
 }
+
+.ModalTodoOptions__IonDatetime {
+  border-radius: 8px;
+}
+
+.ModalTodoOptions__span {
+  color: var(--ion-color-medium);
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.ModalTodoOptions__ContainerIonDatetime {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
