@@ -1,0 +1,23 @@
+.ToggleDay__container__isActive {
+  width: 32px;
+  height: 32px;
+  background-color: var(--ion-color-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.ToggleDay__container__notActive {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--ion-color-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.ToggleDay__text {
+  padding: 8px;
+}

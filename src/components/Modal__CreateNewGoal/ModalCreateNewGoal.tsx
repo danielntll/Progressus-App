@@ -6,6 +6,7 @@ import { text } from "./text";
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonTextarea, IonTitle, IonToolbar } from "@ionic/react";
 import { alertCircleOutline, closeCircle, cloudUploadOutline, removeCircleOutline } from "ionicons/icons";
 import { typeGoal } from "../../types/typeGoal";
+import CardSelectGoalWeekDays from "../Card__SelectGoalWeekDays/CardSelectGoalWeekDays";
 
 interface ContainerProps {
   callback: () => void;
@@ -113,6 +114,10 @@ const ModalCreateNewGoal: React.FC<ContainerProps> = ({
             />
           </IonItem>
         </IonList>
+        {/* ------------- */}
+        <CardSelectGoalWeekDays
+
+        />
       </IonContent>
     </IonModal>);
 };

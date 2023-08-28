@@ -2,6 +2,12 @@ export const days = {
   ita: ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"],
   eng: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
 };
+
+export const daysStrict = {
+  ita: ["D", "L", "M", "M", "G", "V", "S"],
+  eng: ["S", "M", "T", "W", "T", "F", "S"],
+};
+
 export const months = {
   ita: [
     "Gennaio",
