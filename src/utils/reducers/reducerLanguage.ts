@@ -1,5 +1,10 @@
 import { createContext } from "react";
-import { typeReducerLanguage } from "../../types/typeReducerLanguage";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
+
+type typeReducerLanguage = {
+  type: "UPDATE";
+  selectedLanguage: typeAviableLanguages;
+};
 
 export const reducerLanguage = (state: any, action: typeReducerLanguage) => {
   switch (action.type) {

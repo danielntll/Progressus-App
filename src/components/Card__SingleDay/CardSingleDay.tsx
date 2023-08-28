@@ -8,25 +8,21 @@ import { typeCardSingleDay } from "../../types/typeCardSingleDay";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { constColors } from "../../constants/colors";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { useContext } from "react";
 
 interface ContainerProps {
   data: typeCardSingleDay;
   callback: () => void;
   isActive: boolean;
-  isToday: boolean;
 }
 
 const CardSingleDay: React.FC<ContainerProps> = ({
   data,
   callback,
   isActive,
-  isToday,
 }) => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
@@ -56,11 +52,6 @@ const CardSingleDay: React.FC<ContainerProps> = ({
             backgroundColor: "#3e98c7",
           })}
         />
-      </div>
-      <div className={styles.CardSingleDay__IonBadge}>
-        {isToday ? (
-          <IonBadge color="primary">{text[language].isToday}</IonBadge>
-        ) : null}
       </div>
     </div>
   );

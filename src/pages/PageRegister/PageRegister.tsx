@@ -15,26 +15,23 @@ import { RoutesApp } from "../../routes";
 
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { useContext, useState } from "react";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-import { Redirect, useHistory } from "react-router";
 
 
 import styles from "./PageRegister.module.css";
 import { text } from "./text";
-import { language } from "ionicons/icons";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
+import { typeUser } from "../../types/typeUser";
+import { firebaseUserActions } from "../../firebase/firebaseUserActions";
 
 
 
 const PageRegister: React.FC = () => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
 
-  const history = useHistory();
   // CONDITIONS --------------------
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -44,7 +41,27 @@ const PageRegister: React.FC = () => {
   const handleRegister = async () => {
     try {
       setStatus({ loading: true, error: false });
-      await createUserWithEmailAndPassword(auth, email, password)
+      await createUserWithEmailAndPassword(auth, email, password).then((resp) => {
+        console.log(resp.user.email);
+        console.log(resp.user.uid);
+
+        const objUser: typeUser = {
+          UID: resp.user.uid,
+          email: resp.user.email!,
+          name: "",
+          imageUrl: `https://robohash.org/${Date.now()}.png`,
+          createdAt: Date.now(),
+          description: ""
+        }
+
+        firebaseUserActions.CREATE(objUser).then(() => {
+          console.log("PageRegister User creato.")
+        }).catch((error) => {
+          setStatus({ loading: false, error: true });
+          console.log("error:", error);
+        });
+
+      })
     } catch (error) {
       setStatus({ loading: false, error: true });
       console.log("error:", error);

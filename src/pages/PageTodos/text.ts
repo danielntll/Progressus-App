@@ -1,8 +1,24 @@
 export const text = {
   ita: {
-    sectionTitle: "Todo",
+    sectionTitle: "I tuoi todos",
+    toastSuccess: "Todo aggiornato con successo!",
+    closeToast: "Chiudi",
+    toastWarning: "Completare tutti i campi!",
+    toastDanger: "Ops! Qualcosa è andato storto.",
+    alertTitle: "Attenzione!",
+    alertMessage: "L'eliminazione è definitiva.",
+    alertCancel: "Annulla",
+    alertConfirm: "Elimina",
   },
   eng: {
-    sectionTitle: "Todo",
+    sectionTitle: "Your todos",
+    toastSuccess: "Todo aggiornato con successo!",
+    closeToast: "Chiudi",
+    toastWarning: "Completare tutti i campi!",
+    toastDanger: "Ops! Qualcosa è andato storto.",
+    alertTitle: "Attenzione!",
+    alertMessage: "L'eliminazione è definitiva.",
+    alertCancel: "Annulla",
+    alertConfirm: "Elimina",
   },
 };

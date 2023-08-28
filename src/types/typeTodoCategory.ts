@@ -6,6 +6,10 @@
   Folder - for tasks categorized as part of a folder, which can be rescheduled and have additional characteristics.
  */
 
-export type typeTodoCategory = "Daily" | "Goal" | "Folder";
+export type typeTodoCategory = {
+  name: "Daily" | "Goal" | "Folder";
+  icon: string;
+  color: string;
+};
 
-export const todoCategory: typeTodoCategory[] = ["Daily", "Goal", "Folder"];
+export type typeTodoCategoryNames = "Daily" | "Goal" | "Folder";

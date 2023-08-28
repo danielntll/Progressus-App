@@ -1,20 +1,23 @@
-import { IonButton, IonButtons, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonTextarea, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonContent, IonDatetime, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonTextarea, IonTitle, IonToolbar } from "@ionic/react";
 import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import { text } from "./text";
 import { typeTodo } from "../../types/typeTodo";
-import { add, alertCircleOutline, closeCircle, removeCircleOutline } from "ionicons/icons";
+import { alertCircleOutline, closeCircle, cloudUploadOutline, removeCircleOutline } from "ionicons/icons";
 
 import { montsStrict } from "../../text/textDays&Months";
 import { LanguageContext } from "../../utils/reducers/reducerLanguage";
 import { useContext } from "react";
-import { TodosContext } from "../../utils/reducers/reducerTodo";
+
+import styles from './ModalTodoOptions.module.css';
+
+
 
 interface ContainerProps {
   isModalOptionsOpen: boolean,
   setIsModalOptionsOpen: (value: boolean) => void;
   todo: typeTodo,
   setTodo: (values: typeTodo) => void;
-  handleCreateTodo: () => void;
+  callback: () => void;
   selectedDate: Date,
 }
 
@@ -23,23 +26,23 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
   setIsModalOptionsOpen,
   todo,
   setTodo,
-  handleCreateTodo,
+  callback,
   selectedDate
 }) => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
-  const { stateTodos, dispatchTodos } = useContext(TodosContext);
   const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   // FUNCTIONS ---------------------
-
   const handleCallbackCreateToDo = () => {
-    handleCreateTodo();
+    callback();
   }
   // RETURN ------------------------
   return (
     <>
-      <IonModal isOpen={isModalOptionsOpen}>
+      <IonModal
+        isOpen={isModalOptionsOpen}
+      >
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
@@ -55,7 +58,10 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
                 color={"success"}
                 fill="solid"
                 onClick={() => handleCallbackCreateToDo()}>
-                <IonIcon icon={add} />
+                <span className={"padding-right-small"}>
+                  {text[language].save}
+                </span>
+                <IonIcon icon={cloudUploadOutline} />
               </IonButton>
             </IonButtons>
           </IonToolbar>
@@ -71,7 +77,7 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
                 onClick={() => setTodo({ ...todo, title: "" })}
               >
                 <IonIcon
-                  color={todo.title ? "medium" : "warning"}
+                  color={todo.title ? "danger" : "warning"}
                   icon={todo.title ? closeCircle : alertCircleOutline}
                 />
               </IonButton>
@@ -100,7 +106,7 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
               >
                 <IonIcon
                   className="icon-margin-right"
-                  color={"medium"}
+                  color={todo.description ? "danger" : "medium"}
                   icon={todo.description ? closeCircle : removeCircleOutline}
                 />
               </IonButton>
@@ -126,34 +132,40 @@ const ModalTodoOptions: React.FC<ContainerProps> = ({
 
                 <IonIcon
                   className="icon-margin-right"
-                  color={"medium"}
+                  color={todo.deadlineDate ? "danger" : "medium"}
                   icon={todo.deadlineDate ? closeCircle : removeCircleOutline}
                 />
               </IonButton>
               <IonLabel>
                 <div className="label-text sc-ion-textarea-ios">
-                  {text[language].deadlineDate}
+                  {text[language].deadlineDate}:
+                  <span className={styles.ModalTodoOptions__span}>
+                    {todo.deadlineDate ? text[language].deadlineDateSelected : text[language].deadlineDateNotSelected}
+                  </span>
                 </div>
               </IonLabel>
-              <IonDatetimeButton
-                datetime="datetime"
-                time-target={selectedDate}
-              />
             </IonItem>
           </IonList>
+
+          <div className={styles.ModalTodoOptions__ContainerIonDatetime}>
+
+
+            <IonDatetime
+              className={styles.ModalTodoOptions__IonDatetime}
+              id="datetime"
+              min={selectedDate.toISOString()}
+              onIonChange={(e) => setTodo({ ...todo, deadlineDate: e.target.value! })}
+            >
+              <span slot="time-label">{text[language].calendar}</span>
+            </IonDatetime>
+          </div>
+
 
 
 
         </IonContent>
       </IonModal >
       {/* ---------- EXTRAS ------------ */}
-      <IonModal keepContentsMounted={true}>
-        <IonDatetime
-          id="datetime"
-          onIonChange={(e) => setTodo({ ...todo, deadlineDate: e.target.value! })}
-        ></IonDatetime>
-      </IonModal>
-
     </>);
 };
 
