@@ -5,6 +5,8 @@ import {
   listOutline,
   logIn,
   logInOutline,
+  trophy,
+  trophyOutline,
 } from "ionicons/icons";
 
 export const RoutesApp = {
@@ -46,6 +48,14 @@ export const RoutesApp = {
     icon: {
       active: logIn,
       notActive: logInOutline,
+    },
+  },
+  pageGoals: {
+    path: "/goals",
+    title: "Goals",
+    icon: {
+      active: trophy,
+      notActive: trophyOutline,
     },
   },
 };

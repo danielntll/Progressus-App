@@ -40,6 +40,7 @@ import { AuthContext, useAuthInit } from "./firebase/auth";
 import PageLogin from "./pages/PageLogin/PageLogin";
 import PageRegister from "./pages/PageRegister/PageRegister";
 import { TodosContextProvider } from "./context/TodosContextProvider";
+import PageGoals from "./pages/PageGoals/PageGoals";
 
 setupIonicReact();
 
@@ -82,25 +83,27 @@ const App: React.FC = () => {
 
   const routes = (
     <>
+      {/* REDIRECT --------------- */}
+      <Route exact path="/">
+        <Redirect to={RoutesApp.pageHome.path} />
+      </Route>
+
       <Route exact path={RoutesApp.pageLogin.path}>
         <Redirect to={RoutesApp.pageHome.path} />
       </Route>
       <Route exact path={RoutesApp.pageRegister.path}>
         <Redirect to={RoutesApp.pageHome.path} />
       </Route>
-      <Route exact path="/">
-        <Redirect to={RoutesApp.pageHome.path} />
-      </Route>
-      <Route exact path="/">
-        <Redirect to={RoutesApp.pageHome.path} />
-      </Route>
 
+      {/* PAGES --------------- */}
       <Route exact path={RoutesApp.pageHome.path}>
         <PageHome />
       </Route>
-
       <Route exact path={RoutesApp.pageTodos.path}>
         <PageTodos />
+      </Route>
+      <Route exact path={RoutesApp.pageGoals.path}>
+        <PageGoals />
       </Route>
 
     </>
@@ -129,6 +132,7 @@ const App: React.FC = () => {
                     slot="bottom"
                   >
                     {/* INIT TAB BUTTONS ----------- */}
+                    {/* HOME */}
                     <IonTabButton
                       tab={RoutesApp.pageHome.title}
                       href={RoutesApp.pageHome.path}
@@ -143,6 +147,7 @@ const App: React.FC = () => {
                       />
                       <IonLabel>{RoutesApp.pageHome.title}</IonLabel>
                     </IonTabButton>
+                    {/* TODOS */}
                     <IonTabButton
                       tab={RoutesApp.pageTodos.title}
                       href={RoutesApp.pageTodos.path}
@@ -156,6 +161,21 @@ const App: React.FC = () => {
                         }
                       />
                       <IonLabel>{RoutesApp.pageTodos.title}</IonLabel>
+                    </IonTabButton>
+                    {/* GOALS */}
+                    <IonTabButton
+                      tab={RoutesApp.pageGoals.title}
+                      href={RoutesApp.pageGoals.path}
+                    >
+                      <IonIcon
+                        aria-hidden="true"
+                        icon={
+                          currentTab === RoutesApp.pageGoals.title
+                            ? RoutesApp.pageGoals.icon.active
+                            : RoutesApp.pageGoals.icon.notActive
+                        }
+                      />
+                      <IonLabel>{RoutesApp.pageGoals.title}</IonLabel>
                     </IonTabButton>
                     {/* END TAB BUTTONS ------------ */}
                   </IonTabBar>

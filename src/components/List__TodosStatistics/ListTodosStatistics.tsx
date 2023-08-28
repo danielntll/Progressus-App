@@ -23,22 +23,24 @@ const ListTodosStatistics: React.FC<ContainerProps> = ({ dailyCompleted, selecte
     <IonListHeader>
       <IonLabel>{text[language].title}</IonLabel>
     </IonListHeader>
-    <ItemDailyCompletedTodos
+    {/* <ItemDailyCompletedTodos
       selectedDate={selectedDate}
       dailyCompleted={dailyCompleted}
       title={text[language].sectionGolas}
       icon={trophy}
-    />
-    {/* <ItemDailyCompletedTodos
+    /> */}
+    <ItemDailyCompletedTodos
+      selectedDate={selectedDate}
       dailyCompleted={dailyCompleted}
       title={text[language].sectionDaily}
       icon={calendarNumber}
     />
-    <ItemDailyCompletedTodos
+    {/* <ItemDailyCompletedTodos
+     selectedDate={selectedDate}
       dailyCompleted={dailyCompleted}
       title={text[language].sectionFolder}
       icon={diamond}
-    /> */}
+    />  */}
   </IonList>;
 };
 
