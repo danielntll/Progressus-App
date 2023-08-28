@@ -178,6 +178,7 @@ const PageTodos: React.FC = () => {
           {/* -------------- */}
 
           <ListTodosStatistics
+            selectedDate={selectedDate}
             dailyCompleted={dailyCompleted.completedUIDs}
           />
         </div>

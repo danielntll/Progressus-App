@@ -30,14 +30,14 @@ const ListUserTodos: React.FC<ContainerProps> = (
       <IonListHeader>
         <IonLabel>{title}</IonLabel>
       </IonListHeader>
-      {todos?.map((todo: typeTodo) => {
+      {todos?.map((todo: typeTodo, index: number) => {
         if (!todo.completed) return (
           <ItemUserTodo
             callbackComplete={callbackComplete}
             callbackModify={callbackModify}
             callbackDelete={callbackDelete}
             todo={todo}
-            key={todo.todoUID}
+            key={todo.todoUID + index}
           />
         )
       })}

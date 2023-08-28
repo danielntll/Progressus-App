@@ -8,9 +8,15 @@ interface ContainerProps {
   title: string;
   icon: string;
   dailyCompleted: string[];
+  selectedDate: Date,
 }
 
-const ItemTodosTatistics: React.FC<ContainerProps> = ({ dailyCompleted, title, icon }) => {
+const ItemTodosTatistics: React.FC<ContainerProps> = ({
+  dailyCompleted,
+  title,
+  icon,
+  selectedDate
+}) => {
   // VARIABLES ---------------------
   // CONDITIONS --------------------
   const [isOpen, setIsOpen] = useState(false);
@@ -47,6 +53,7 @@ const ItemTodosTatistics: React.FC<ContainerProps> = ({ dailyCompleted, title, i
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         dailyCompleted={dailyCompleted}
+        selectedDate={selectedDate}
       />
     </>);
 };

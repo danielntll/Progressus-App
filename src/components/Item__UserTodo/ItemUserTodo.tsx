@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IonBadge, IonButton, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel } from "@ionic/react";
 import { typeTodo } from "../../types/typeTodo";
-import { chevronForward, closeOutline, timeOutline } from "ionicons/icons";
+import { checkmarkCircle, chevronForward, closeOutline, timeOutline } from "ionicons/icons";
 
 import styles from "./ItemUserTodo.module.css";
+import { text } from "./text";
+import { LanguageContext } from "../../utils/reducers/reducerLanguage";
+import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 
 
 interface ContainerProps {
@@ -22,6 +25,8 @@ const ItemUserTodo: React.FC<ContainerProps> = (
   }
 ) => {
   // VARIABLES ---------------------
+  const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
+  const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   const [deadlineDate, setDeadlineDate] = useState<Date>();
 
@@ -49,6 +54,7 @@ const ItemUserTodo: React.FC<ContainerProps> = (
     e?.currentTarget?.close();
     callbackModify(todo);
   };
+
   const handleRemoveTodo = (e?: any) => {
     console.log("handleRemoveTodo");
     e?.currentTarget?.close();
@@ -73,8 +79,8 @@ const ItemUserTodo: React.FC<ContainerProps> = (
         <IonItem
           className={styles.container}>
           <IonIcon
-            icon={todo.categoryType.icon}
-            style={{ color: todo.categoryType.color }}
+            icon={todo?.categoryType?.icon}
+            style={{ color: todo?.categoryType?.color }}
             slot="start"
           />
           <IonLabel>
@@ -82,13 +88,13 @@ const ItemUserTodo: React.FC<ContainerProps> = (
 
               <div className={styles.ItemUserTodo__header}>
                 <IonBadge
-                  style={{ backgroundColor: todo.categoryType.color }} slot="start"
+                  style={{ backgroundColor: todo?.categoryType?.color }} slot="start"
                 >
-                  {todo.categoryType.name}
+                  {todo?.categoryType?.name}
                 </IonBadge>
               </div>
               <div>
-                <h2 className="ion-text-wrap">{todo.title}</h2>
+                <h2 className="ion-text-wrap">{todo?.title}</h2>
                 {todo?.description ?
                   <IonLabel className="ion-text-wrap">
                     <p>{todo?.description}</p>
@@ -120,26 +126,29 @@ const ItemUserTodo: React.FC<ContainerProps> = (
               }
             </div>
           </IonLabel>
-          <IonButton onClick={() => callbackComplete(todo)} slot="end">
+          <IonButton fill="clear" onClick={() => callbackComplete(todo)} slot="end">
             {
-              todo.completed ?
-                "Completato"
+              todo?.completed ?
+                text[language].remove
                 :
-                "Completa"
+                <IonIcon size="large" color="primary" icon={checkmarkCircle} />
             }
           </IonButton>
         </IonItem>
         {/* --------- */}
-        <IonItemOptions side="end">
-          <IonItemOption
-            onClick={() => handleOpenTodo()}
-            color="primary"
-            expandable
-          >
+        {!todo?.completed ?
+          <IonItemOptions side="end">
+            <IonItemOption
+              onClick={() => handleOpenTodo()}
+              color="primary"
+              expandable
+            >
 
-            <IonIcon slot="end" icon={chevronForward}></IonIcon>
-          </IonItemOption>
-        </IonItemOptions>
+              <IonIcon slot="end" icon={chevronForward}></IonIcon>
+            </IonItemOption>
+          </IonItemOptions>
+          : null
+        }
       </IonItemSliding>
     </>
   );

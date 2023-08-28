@@ -9,9 +9,10 @@ import { calendarNumber, diamond, trophy } from "ionicons/icons";
 
 interface ContainerProps {
   dailyCompleted: string[],
+  selectedDate: Date,
 }
 
-const ListTodosStatistics: React.FC<ContainerProps> = ({ dailyCompleted }) => {
+const ListTodosStatistics: React.FC<ContainerProps> = ({ dailyCompleted, selectedDate }) => {
   // VARIABLES ---------------------
   const { stateLanguage, dispatchLanguage } = useContext(LanguageContext);
   const language: typeAviableLanguages = stateLanguage;
@@ -23,11 +24,12 @@ const ListTodosStatistics: React.FC<ContainerProps> = ({ dailyCompleted }) => {
       <IonLabel>{text[language].title}</IonLabel>
     </IonListHeader>
     <ItemDailyCompletedTodos
+      selectedDate={selectedDate}
       dailyCompleted={dailyCompleted}
       title={text[language].sectionGolas}
       icon={trophy}
     />
-    <ItemDailyCompletedTodos
+    {/* <ItemDailyCompletedTodos
       dailyCompleted={dailyCompleted}
       title={text[language].sectionDaily}
       icon={calendarNumber}
@@ -36,7 +38,7 @@ const ListTodosStatistics: React.FC<ContainerProps> = ({ dailyCompleted }) => {
       dailyCompleted={dailyCompleted}
       title={text[language].sectionFolder}
       icon={diamond}
-    />
+    /> */}
   </IonList>;
 };
 

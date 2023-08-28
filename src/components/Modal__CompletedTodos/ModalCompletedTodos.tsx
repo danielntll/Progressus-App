@@ -13,6 +13,7 @@ interface ContainerProps {
   isOpen: boolean,
   setIsOpen: (value: boolean) => void;
   dailyCompleted: string[];
+  selectedDate: Date,
 }
 
 const ModalCompletedTodos: React.FC<ContainerProps> = (
@@ -20,6 +21,7 @@ const ModalCompletedTodos: React.FC<ContainerProps> = (
     isOpen,
     setIsOpen,
     dailyCompleted,
+    selectedDate,
   }
 ) => {
   // VARIABLES ---------------------
@@ -31,25 +33,30 @@ const ModalCompletedTodos: React.FC<ContainerProps> = (
   // FUNCTIONS ---------------------
   useEffect(() => {
     if (isOpen) {
-
       handleGetData()
     }
   }, [isOpen]);
 
   const handleGetData = async () => {
-    console.log("handleGetData")
-    const auxCompletedTodos: any[] = [];
-    const promiseCompleted = dailyCompleted.map(async (UID: string) => {
-      auxCompletedTodos.push(await firebaseTodoActions.READ(userUID!, UID));
-    });
-    Promise.all(promiseCompleted).then(() => {
-      setCompletedTodos(auxCompletedTodos);
-    })
+    console.log("handleGetData");
+    if (dailyCompleted) {
+      const auxCompletedTodos: any[] = [];
+      const promiseCompleted = dailyCompleted?.map(async (UID: string) => {
+        auxCompletedTodos.push(await firebaseTodoActions.READ(userUID!, UID));
+      });
+      Promise.all(promiseCompleted).then(() => {
+        setCompletedTodos(auxCompletedTodos);
+      })
+    }
   }
 
-  const handleCallback = () => {
-    console.log("handleCallback")
-  }
+  const callbackRemoveCompleted = (todoToRemove: typeTodo) => {
+    console.log("callbackRemoveCompleted");
+    setCompletedTodos((todos: typeTodo[]) => todos.filter((todo: typeTodo) => todo.todoUID !== todoToRemove.todoUID));
+    firebaseTodoActions.REMOVE_COMPLETE(userUID!, todoToRemove, selectedDate)
+  };
+  const callbackModify = () => { };
+  const callbackDelete = () => { }
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -75,7 +82,9 @@ const ModalCompletedTodos: React.FC<ContainerProps> = (
         {completedTodos?.map((todo: typeTodo, index: number) => {
           return (
             <ItemUserTodo
-              callback={handleCallback}
+              callbackComplete={callbackRemoveCompleted}
+              callbackModify={callbackModify}
+              callbackDelete={callbackDelete}
               todo={todo}
               key={todo.todoUID + index} />
           )
