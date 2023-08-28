@@ -18,6 +18,8 @@ import { typeAviableLanguages } from "../../types/typeAviableLanguages";
 import styles from "./PageGoals.module.css";
 import { text } from "./text";
 import { add } from "ionicons/icons";
+import ModalCreateNewGoal from "../../components/Modal__CreateNewGoal/ModalCreateNewGoal";
+import { defaultGoal, typeGoal } from "../../types/typeGoal";
 
 const PageGoals: React.FC = () => {
   // VARIABLES ---------------------
@@ -25,9 +27,20 @@ const PageGoals: React.FC = () => {
   const language: typeAviableLanguages = stateLanguage;
   // CONDITIONS --------------------
   const [isModalCreateNewGoalOpen, setIsModalCreateNewGoalOpen] = useState<boolean>(false);
+  const [newGoal, setNewGoal] = useState<typeGoal>(defaultGoal);
   // FUNCTIONS ---------------------
   const handleOpenCreateNewGoal = () => {
     setIsModalCreateNewGoalOpen(true);
+  }
+
+  const handleUploadNewGoal = () => {
+    console.log("handleUploadNewGoal");
+    try {
+      newGoal.createdAt = Date.now();
+
+    } catch (error) {
+
+    }
   }
   // RETURN ------------------------
   return (
@@ -57,6 +70,14 @@ const PageGoals: React.FC = () => {
         {/* INIT CONTENT ---------------------- */}
         <div className={styles.pageContainer}></div>
         {/* END CONTENT ----------------------- */}
+        {/* EXTRA ----------------------------- */}
+        <ModalCreateNewGoal
+          callback={handleUploadNewGoal}
+          isModalOpen={isModalCreateNewGoalOpen}
+          setIsModalOpen={setIsModalCreateNewGoalOpen}
+          goal={newGoal}
+          setGoal={setNewGoal}
+        />
       </IonContent>
     </IonPage>
   );
